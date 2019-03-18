@@ -16,10 +16,8 @@ Vue.use(VueCookies);
 Vue.prototype.main = main;
 Vue.prototype.api = api;
 
-let vue = new Vue({
+window.$vue = new Vue({
     store,
     router,
     render: h => h(App),
 }).$mount('#app');
-
-export default vue;

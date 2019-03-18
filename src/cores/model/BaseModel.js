@@ -1,4 +1,3 @@
-import vue from '../../main';
 import Validater from "../validate/Validater";
 
 export default class BaseModel {
@@ -7,10 +6,6 @@ export default class BaseModel {
      * @param {object} data
      */
     constructor(data = {}) {
-        /**
-         * vue实例，方便模型中调用全局属性和方法
-         */
-        this.vue = vue;
 
         /**
          * 字典后缀
@@ -122,6 +117,6 @@ export default class BaseModel {
      * @param {number} duration 消息显示时长
      */
     static setTip(text, type = 'info', duration = 3000) {
-        vue.$store.commit('update', {target: vue.$store.state.tip, data: {text: '读取用户信息成功'}});
+        $vue.$store.commit('update', {target: $vue.$store.state.tip, data: {text: '读取用户信息成功'}});
     }
 }
