@@ -13,8 +13,8 @@ Vue.config.productionTip = main.debug;
 Vue.use(VueAxios, axios);
 Vue.use(VueCookies);
 
-Vue.prototype.main = main;
-Vue.prototype.api = api;
+window.$main = main;
+window.$api = api;
 
 window.$vue = new Vue({
     store,

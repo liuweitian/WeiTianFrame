@@ -1,5 +1,5 @@
 <template>
-    <div class="site-index" @click="click">
+    <div class="site-index">
         首页
     </div>
 </template>
@@ -7,13 +7,6 @@
 <script>
     export default {
         name: "index",
-        methods: {
-            click() {
-                this.$store.state.user.login();
-            }
-        },
-        mounted() {
-        }
     }
 </script>
 

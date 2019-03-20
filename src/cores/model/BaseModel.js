@@ -117,6 +117,6 @@ export default class BaseModel {
      * @param {number} duration 消息显示时长
      */
     static setTip(text, type = 'info', duration = 3000) {
-        $vue.$store.commit('update', {target: $vue.$store.state.tip, data: {text: '读取用户信息成功'}});
+        $vue.$store.commit('update', {target: $vue.$store.state.tip, data: {text: text}});
     }
 }

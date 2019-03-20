@@ -1,4 +1,5 @@
 import BaseModel from "../cores/model/BaseModel";
+import BaseCall from "../cores/call/BaseCall";
 
 class User extends BaseModel {
     constructor(data = {}) {
@@ -35,22 +36,19 @@ class User extends BaseModel {
      */
     load( params = {}, fn = undefined) {
 
-        setTimeout( () => {
-            typeof fn === 'function' ? fn( { message: '读取用户信息成功' } ) : '';
-            BaseModel.setTip('读取用户信息成功');
-        }, 1000 );
-
     }
 
     /**
      * 登录
      * @param {object} params 参数
+     * @param {function} fn 回调
      */
-    login(params) {
-        setTimeout( () => {
-            typeof fn === 'function' ? fn( { message: '登录成功' } ) : '';
-            BaseModel.setTip('登录成功');
-        }, 100 );
+    login(params, fn) {
+        BaseCall.post( 'login', { params: params }, (type, message, res) => {
+            if( type !== 'success' ) {
+                BaseModel.setTip(message);
+            }
+        } );
     }
 }
 
