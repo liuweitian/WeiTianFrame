@@ -52,9 +52,10 @@ export default class BaseCall {
                 for( let _path in map.items ) {
                     // 根据配置好的字符串路径查找对象中的数据
                     let value = this.getDataForPath( response, _path );
+                    let strict = ObjectHelper.getValue( map, 'strict', true );
 
                     // 如果查找到的数据和预定义的数据相等，则认为是命中条件的
-                    result = result && value === map.items[ _path ];
+                    result = result && ( ( strict && value === map.items[ _path ] ) || ( value == map.items[ _path ] ) );
                 }
                 // 如果单个类型配置中的条件全部命中，则调用成功回调
                 if( result ) {

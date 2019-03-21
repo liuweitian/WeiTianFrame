@@ -69,14 +69,14 @@ export default class BaseModel {
          * ]
          * @type {{}}
          */
-        this.rules = {};
+        this.rules = [];
     }
 
     /**
      * 根据rules校验字段
      * 如果不传入参数，则默认获取this.data
      * @param {object|undefined} data
-     * return {{hasError, result}}
+     * @return {{hasError, result}}
      */
     validate(data = undefined) {
         data = typeof data === 'object' ? data : this.data;

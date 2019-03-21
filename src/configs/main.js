@@ -3,4 +3,7 @@ export default {
 
     // 调试模式
     debug: true,
+
+    // 运行环境
+    env: 'dev',
 };
