@@ -23,8 +23,10 @@ class User extends BaseModel {
         };
 
         this.rules = [
-            {attribute: 'username', validate: 'String', options: { list: ["sdf"] }},
-            {attribute: 'password', validate: 'String'},
+            {attribute: 'username', validate: 'String'},
+            {attribute: 'username', validate: 'Required'},
+            {attribute: 'password', validate: 'String', options: { min: 6, max: 16 }},
+            {attribute: 'password', validate: 'Required'},
         ];
     }
 

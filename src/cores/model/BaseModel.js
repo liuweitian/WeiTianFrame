@@ -70,6 +70,10 @@ export default class BaseModel {
          * @type {{}}
          */
         this.rules = [];
+
+        this.errors = [];
+
+        this.hasError = false;
     }
 
     /**
@@ -80,7 +84,17 @@ export default class BaseModel {
      */
     validate(data = undefined) {
         data = typeof data === 'object' ? data : this.data;
-        return Validater.validate( data, this.rules );
+        let result = Validater.validate( data, this.rules );
+
+        $vue.$store.commit('update', {
+            target: $vue.$store.state.user,
+            data: {
+                hasError: result.hasError,
+                errors: result.result
+            }
+        });
+
+        return !this.hasError;
     }
 
     /**

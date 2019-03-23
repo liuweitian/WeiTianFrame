@@ -25,13 +25,13 @@ export default class String {
             if (min !== undefined) {
                 if (value.length < min) {
                     hasError = true;
-                    result[attribute].push("字数必须大于" + min);
+                    result[attribute].push("长度必须大于" + min);
                 }
             }
             if (max !== undefined) {
                 if (value.length > max) {
                     hasError = true;
-                    result[attribute].push("字数必须小于" + max);
+                    result[attribute].push("长度必须小于" + max);
                 }
             }
             if( typeof list === 'object' ) {

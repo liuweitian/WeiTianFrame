@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from "vue-router";
 import SiteIndex from '../views/site/index';
+import SiteLogin from '../views/site/login';
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -9,9 +10,15 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            name: 'work',
+            name: 'main',
             label: '首页',
             component: SiteIndex,
+        },
+        {
+            path: '/site/login',
+            name: 'login',
+            label: '登录',
+            component: SiteLogin,
         },
     ]
 });
