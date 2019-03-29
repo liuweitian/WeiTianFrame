@@ -7,10 +7,11 @@ export default class Validater {
     /**
      * 校验
      * @param {object} data
-     * @param {object} rules
+     * @param {BaseModel} model
      * @returns {{hasError: boolean, result: Array}}
      */
-    static validate(data, rules) {
+    static validate(data, model) {
+        let rules = model.rules;
         let result = [];
         for (let name in data) {
             for (let m in rules) {
@@ -18,13 +19,13 @@ export default class Validater {
                 if (item.attribute === name) {
                     switch (item.validate) {
                         case 'Required':
-                            result.push(Required.validate(name, data[name], ObjectHelper.getValue(item, 'options', {})));
+                            result.push(Required.validate(model.getLabel(item.attribute), name, data[name], ObjectHelper.getValue(item, 'options', {})));
                             break;
                         case 'Number':
-                            result.push(Number.validate(name, data[name], ObjectHelper.getValue(item, 'options', {})));
+                            result.push(Number.validate(model.getLabel(item.attribute), name, data[name], ObjectHelper.getValue(item, 'options', {})));
                             break;
                         case 'String':
-                            result.push(String.validate(name, data[name], ObjectHelper.getValue(item, 'options', {})));
+                            result.push(String.validate(model.getLabel(item.attribute), name, data[name], ObjectHelper.getValue(item, 'options', {})));
                             break;
                     }
                 }

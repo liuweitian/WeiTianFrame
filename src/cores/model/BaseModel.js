@@ -84,10 +84,10 @@ export default class BaseModel {
      */
     validate(data = undefined) {
         data = typeof data === 'object' ? data : this.data;
-        let result = Validater.validate( data, this.rules );
+        let result = Validater.validate( data, this );
 
         $vue.$store.commit('update', {
-            target: $vue.$store.state.user,
+            target: this,
             data: {
                 hasError: result.hasError,
                 errors: result.result
@@ -95,6 +95,34 @@ export default class BaseModel {
         });
 
         return !this.hasError;
+    }
+
+    /**
+     * 获取字段标题
+     * @param {string} attribute 字段名
+     * @param {string} format 格式化配置名
+     * @returns {*}
+     */
+    getLabel(attribute, format = 'format') {
+        return this[format][attribute].label ||  this.format[attribute].label;
+    }
+
+    /**
+     * 获取一个错误
+     * @returns {*}
+     */
+    getOneError() {
+        let result = null;
+
+        for ( let index in this.errors ) {
+            let error = this.errors[index];
+            if( error.length ) {
+                result = error[0];
+                break;
+            }
+        }
+
+        return result;
     }
 
     /**
