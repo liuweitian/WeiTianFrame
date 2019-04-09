@@ -2,7 +2,8 @@
 
 ## 安装方式
 ```
-npm install
+1、npm install
+2、手动创建src/configs/apiLocal.js文件，参考apiDev.js
 ```
 
 ### 开发运行

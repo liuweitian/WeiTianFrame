@@ -1,15 +1,15 @@
 <template>
     <div id="app">
-        <wtf-tip></wtf-tip>
+        <wt-tip></wt-tip>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import WtfTip from "./components/WtfTip";
+    import WtTip from "./components/WtTip";
     export default {
         name: 'app',
-        components: {WtfTip},
+        components: {WtTip},
     }
 </script>
 

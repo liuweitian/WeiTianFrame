@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "WtfTip",
+        name: "WtTip",
         computed: {
             tip() {
                 return this.$store.state.tip;

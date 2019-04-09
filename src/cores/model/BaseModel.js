@@ -151,14 +151,4 @@ export default class BaseModel {
 
         return value;
     }
-
-    /**
-     * 设置全局消息
-     * @param {string} text 消息内容
-     * @param {string} type 消息类型
-     * @param {number} duration 消息显示时长
-     */
-    static setTip(text, type = 'info', duration = 3000) {
-        $vue.$store.commit('update', {target: $vue.$store.state.tip, data: {text: text}});
-    }
 }

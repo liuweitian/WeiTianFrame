@@ -1,6 +1,6 @@
 export default {
     login: {
-        url: 'http://106.14.9.89:19999/v1/site/login',
+        url: 'http://localhost/v1/site/login',
         maps: [
             {
                 type: 'success',

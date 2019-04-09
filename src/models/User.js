@@ -30,16 +30,6 @@ class User extends BaseModel {
         ];
     }
 
-
-    /**
-     * 读取用户信息
-     * @param {object} params 参数
-     * @param {function} fn 回调
-     */
-    load( params = {}, fn = undefined) {
-
-    }
-
     /**
      * 登录
      * @param {object} params 参数
@@ -48,7 +38,7 @@ class User extends BaseModel {
     login(params, fn) {
         BaseCall.post( 'login', { params: params }, (type, message, res) => {
             if( type !== 'success' ) {
-                BaseModel.setTip(message);
+                typeof fn === 'function' ? fn(type, message, res) : '';
             }
         } );
     }

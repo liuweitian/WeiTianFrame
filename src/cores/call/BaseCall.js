@@ -84,8 +84,9 @@ export default class BaseCall {
 
         Vue.axios.get(urlItem.url, options).then((r) => {
             this.pathParse( r, urlItem, successCb );
-        }, (r) => {
-            let status = r.response.data.status;
+        }, (e) => {
+            let r = e.response;
+            let status = r.status;
             typeof errorCb === 'function' ? errorCb( r, status ) : this.defaultErrorCallback( r, status );
         });
     }
@@ -100,10 +101,11 @@ export default class BaseCall {
     static post(urlName, options, successCb, errorCb) {
         let urlItem = this.getUrlForName(urlName);
 
-        Vue.axios.post(urlItem.url, options.params, options.headers).then((r) => {
+        Vue.axios.post(urlItem.url, options.params, { headers: options.headers }).then((r) => {
             this.pathParse( r, urlItem, successCb );
-        }, r => {
-            let status = r.response.data.status;
+        }, e => {
+            let r = e.response;
+            let status = r.status;
             typeof errorCb === 'function' ? errorCb( r, status ) : this.defaultErrorCallback( r, status );
         });
     }
