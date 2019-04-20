@@ -77,6 +77,17 @@ export default class BaseModel {
     }
 
     /**
+     * 更新原始数据
+     * @param {object} data
+     */
+    updateData(data) {
+        $vue.$store.commit('update', {
+            target: this.data,
+            data: data,
+        });
+    }
+
+    /**
      * 根据rules校验字段
      * 如果不传入参数，则默认获取this.data
      * @param {object|undefined} data
