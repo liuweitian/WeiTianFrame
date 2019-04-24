@@ -12,6 +12,9 @@ const router = new VueRouter({
             path: '/',
             name: 'main',
             label: '首页',
+            meta: {
+                login: true,
+            },
             component: SiteIndex,
         },
         {
@@ -24,15 +27,18 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    // 如果未登录，则跳回登录页
-    if (to.name !== 'login' && !store.state.user.accessToken) {
+    if( to.meta.login === true && !store.state.user.isLogin() ) {
         setTimeout(() => {
-            if (!store.state.user.accessToken) {
+            if (!store.state.user.isLogin()) {
                 store.commit('logout');
+                router.push('site/login');
+            } else {
+                next();
             }
         }, 300);
+    } else {
+        next();
     }
-    next();
 });
 
 export default router;

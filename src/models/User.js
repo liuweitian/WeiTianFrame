@@ -5,7 +5,7 @@ class User extends BaseModel {
     constructor(data = {}) {
         super(data);
 
-        this.accessToken = null;
+        this.accessToken = undefined;
 
         this.format = {
             username: {
@@ -42,6 +42,11 @@ class User extends BaseModel {
             }
         } );
     }
+
+    isLogin() {
+        return this.data.accessToken !== undefined;
+    }
 }
+
 
 export default User;

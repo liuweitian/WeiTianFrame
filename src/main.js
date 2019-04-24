@@ -16,6 +16,8 @@ Vue.use(VueCookies);
 window.$main = main;
 window.$api = api;
 
+store.commit('setAccessToken', VueCookies.get('accessToken'), true);
+
 window.$vue = new Vue({
     store,
     router,

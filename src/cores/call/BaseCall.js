@@ -59,17 +59,22 @@ export default class BaseCall {
                 }
                 // 如果单个类型配置中的条件全部命中，则调用成功回调
                 if( result ) {
-                    let message = '';
+                    let message = undefined;
                     // 如果配置了消息路径，则根据路径在response中读取
                     if( map.message ) {
                         message = this.getDataForPath( response, map.message );
                     }
-                    successCb( map.type, message, response );
+
+                    let data = undefined;
+                    if( map.data ) {
+                        data = this.getDataForPath( response, map.data );
+                    }
+                    successCb( { type: map.type, message: message, data: data }, response );
                     return;
                 }
             }
         }
-        successCb( urlItem.defaultType, '', response );
+        successCb( { type: undefined, message: undefined, data: undefined }, response );
     }
 
     /**
