@@ -1,9 +1,14 @@
 # 基于Vue的轻封装框架
 
+## 文档
+```
+链接：https://www.showdoc.cc/300548601360929
+密码：123123
+```
+
 ## 安装方式
 ```
-1、npm install
-2、手动创建src/configs/apiLocal.js文件，参考apiDev.js
+npm install
 ```
 
 ### 开发运行
