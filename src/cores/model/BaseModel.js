@@ -1,4 +1,5 @@
 import Validater from "../validate/Validater";
+import store from '../../store';
 
 export default class BaseModel {
     /**
@@ -81,7 +82,7 @@ export default class BaseModel {
      * @param {object} data
      */
     updateData(data) {
-        $vue.$store.commit('update', {
+        store.commit('update', {
             target: this.data,
             data: data,
         });
@@ -92,7 +93,7 @@ export default class BaseModel {
      * @param {object} data
      */
     updateAttribute(data) {
-        $vue.$store.commit('update', {
+        store.commit('update', {
             target: this,
             data: data,
         });
@@ -108,7 +109,7 @@ export default class BaseModel {
         data = typeof data === 'object' ? data : this.data;
         let result = Validater.validate( data, this );
 
-        $vue.$store.commit('update', {
+        store.commit('update', {
             target: this,
             data: {
                 hasError: result.hasError,
