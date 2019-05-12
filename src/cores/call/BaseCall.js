@@ -20,22 +20,12 @@ export default class BaseCall {
         // 访问出错的默认处理逻辑
     }
 
-    /**
-     * 根据路径读取对象中的数据
-     * @param {object} response
-     * @param {string} _path
-     */
-    static getDataForPath(response, _path) {
-        let value = response;
-        let path = _path.split('.');
-
-        for (let index in path) {
-            value = value[ path[index] ];
-            if( typeof value !== 'object' ) {
-                return value;
-            }
+    static dataParse(response, data) {
+        let result = {};
+        for ( let name in data ) {
+            result[ name ] = ObjectHelper.getDataForPath( response, data[name] );
         }
-        return value;
+        return result;
     }
 
     /**
@@ -51,7 +41,7 @@ export default class BaseCall {
                 let result = true;
                 for( let _path in map.items ) {
                     // 根据配置好的字符串路径查找对象中的数据
-                    let value = this.getDataForPath( response, _path );
+                    let value = ObjectHelper.getDataForPath( response, _path );
                     let strict = ObjectHelper.getValue( map, 'strict', true );
 
                     // 如果查找到的数据和预定义的数据相等，则认为是命中条件的
@@ -59,22 +49,16 @@ export default class BaseCall {
                 }
                 // 如果单个类型配置中的条件全部命中，则调用成功回调
                 if( result ) {
-                    let message = undefined;
-                    // 如果配置了消息路径，则根据路径在response中读取
-                    if( map.message ) {
-                        message = this.getDataForPath( response, map.message );
-                    }
-
-                    let data = undefined;
+                    let data = {};
                     if( map.data ) {
-                        data = this.getDataForPath( response, map.data );
+                        data = BaseCall.dataParse( response, map.data );
                     }
-                    successCb( { type: map.type, message: message, data: data }, response );
+                    successCb( { type: map.type, data: data }, response );
                     return;
                 }
             }
         }
-        successCb( { type: undefined, message: undefined, data: undefined }, response );
+        successCb( { type: undefined, data: {} }, response );
     }
 
     /**

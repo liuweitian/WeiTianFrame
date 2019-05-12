@@ -1,5 +1,6 @@
 import Validater from "../validate/Validater";
 import store from '../../store';
+import Models from "./Models";
 
 export default class BaseModel {
     /**
@@ -72,8 +73,16 @@ export default class BaseModel {
          */
         this.rules = [];
 
+        /**
+         * 校验方法返回的错误信息
+         * @type {Array}
+         */
         this.errors = [];
 
+        /**
+         * 是否存在错误信息
+         * @type {boolean}
+         */
         this.hasError = false;
     }
 
@@ -89,7 +98,7 @@ export default class BaseModel {
     }
 
     /**
-     * 更新示例属性
+     * 更新实例属性
      * @param {object} data
      */
     updateAttribute(data) {
@@ -121,10 +130,42 @@ export default class BaseModel {
     }
 
     /**
+     * 根据原数据列表实力化模型列表
+     * @param list
+     * @returns {Models}
+     */
+    static instanceList(list) {
+        let _list = [];
+        for ( let data of list ) {
+            _list.push( new this(data) );
+        }
+        return new Models(_list);
+    }
+
+    /**
+     * 获取原数据属性值
+     * @param attribute
+     * @returns {*}
+     */
+    getSourceValue(attribute) {
+        return this.data[attribute];
+    }
+
+    /**
+     * 获取当前模型的ID
+     * 它应该是唯一的，并且只能是数值或者字符串
+     * 在models列表中该值作为索引数组的键以提升查询效率
+     * @returns {string|number}
+     */
+    getId() {
+        return this.data.id;
+    }
+
+    /**
      * 获取字段标题
      * @param {string} attribute 字段名
      * @param {string} format 格式化配置名
-     * @returns {*}
+     * @returns {string}
      */
     getLabel(attribute, format = 'format') {
         return this[format][attribute].label ||  this.format[attribute].label;

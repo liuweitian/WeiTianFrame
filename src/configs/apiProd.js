@@ -4,7 +4,9 @@ export default {
         maps: [
             {
                 type: 'success',
-                message: 'data.message',
+                data: {
+                    message: 'data.message'
+                },
                 items: {
                     'status': 200,
                     'data.status': 200,
@@ -12,7 +14,9 @@ export default {
             },
             {
                 type: 'error',
-                message: 'data.message',
+                data: {
+                    message: 'data.message'
+                },
                 items: {
                     'status': 200,
                     'data.status': 400,

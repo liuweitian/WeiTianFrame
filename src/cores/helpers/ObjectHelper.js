@@ -13,6 +13,26 @@ export default {
         return object[index] || defaultValue;
     },
 
+
+
+    /**
+     * 根据路径读取对象中的数据
+     * @param {object} response
+     * @param {string} _path
+     */
+    getDataForPath(response, _path) {
+        let value = response;
+        let path = _path.split('.');
+
+        for (let index in path) {
+            value = value[ path[index] ];
+            if( typeof value !== 'object' ) {
+                return value;
+            }
+        }
+        return value;
+    },
+
     /**
      * 判断value在不在数组中
      * @param {array} array
