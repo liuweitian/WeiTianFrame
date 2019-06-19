@@ -68,6 +68,7 @@ export default class Models {
      */
     getByAttribute(name, value, hasOne = true) {
         let result = undefined;
+
         if( hasOne ) {
             for ( let model of this.list ) {
                 if( model.data[ name ] === value ) {

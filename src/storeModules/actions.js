@@ -49,6 +49,7 @@ export default {
 
     /**
      * 隐藏模态框
+     * 手动调用该方法关闭模态框将不响应onClose方法
      * @param store
      */
     hideModal(store) {
@@ -87,6 +88,40 @@ export default {
                 duration: duration,
                 type: type,
                 onClose: onClose,
+            }
+        });
+    },
+
+    /**
+     * 显示对话框
+     * @param {object} store
+     * @param {string} title 标题
+     * @param {string} text 内容
+     * @param {string} type 类型
+     * @param {function} onClose 关闭回调
+     * @param {function} cancel 取消按钮文本
+     * @param {function} confirm 确认按钮文本
+     */
+    showMessageBox(store, { title, text, type, onClose, cancel, confirm }) {
+        type = type || 'info';
+        title = title || '确认操作';
+
+        cancel = cancel === undefined ? '取消' : cancel;
+        confirm = confirm === undefined ? '确认' : confirm;
+        onClose = typeof onClose === 'function' ? onClose : () => {};
+
+        store.commit('update', {
+            target: store.state.messageBox,
+            data: {
+                id: Math.random(),
+                title: title,
+                message: text,
+                type: type,
+                callback: onClose,
+                showCancelButton: cancel !== '',
+                showConfirmButton: confirm !== '',
+                cancelButtonText: cancel,
+                confirmButtonText: confirm,
             }
         });
     },
