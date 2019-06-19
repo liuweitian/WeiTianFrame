@@ -6,7 +6,7 @@ import VueCookies from 'vue-cookies';
 import store from './store';
 import router from './routers';
 import main from './configs/main';
-import './plugins/element.js';
+
 
 Vue.config.productionTip = main.debug;
 
@@ -15,8 +15,13 @@ Vue.use(VueCookies);
 
 store.commit('setAccessToken', VueCookies.get('accessToken'), true);
 
-new Vue({
-    store,
-    router,
-    render: h => h(App),
-}).$mount('#app');
+let ui = main.ui;
+Promise.all([
+    import('./plugins/' + ui.plugin + '.js')
+]).then(() => {
+    new Vue({
+        store,
+        router,
+        render: h => h(App),
+    }).$mount('#app');
+});

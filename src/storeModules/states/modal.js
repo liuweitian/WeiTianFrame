@@ -3,7 +3,7 @@ export default {
 
     title: '',
 
-    width: '600px',
+    size: '600px',
 
     view: undefined,
 

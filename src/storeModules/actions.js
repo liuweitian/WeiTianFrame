@@ -26,20 +26,20 @@ export default {
      * @param store
      * @param {string} title 标题
      * @param {Component} view 内容，component实例
-     * @param {string} width 宽度
+     * @param {string} size 大小
      * @param {function} onClose 关闭模态框回调
      * @param {$ObjMap} options，其他选项，在view组件中可以通过this.$store.state.modal.options获取
      */
-    showModal(store, { title, view, width, options, onClose }) {
+    showModal(store, { title, view, size, options, onClose }) {
         title = title || '';
-        width = width || '600px';
+        size = size || '600px';
         options = options || {};
         store.commit('update', {
             target: store.state.modal,
             data: {
                 title: title,
                 view: view,
-                width: width,
+                size: size,
                 onClose: onClose,
                 options: options,
                 id: Math.random(),
@@ -58,7 +58,7 @@ export default {
             data: {
                 title: '',
                 view: undefined,
-                width: '30%',
+                size: '600px',
                 id: undefined,
                 onClose: undefined,
                 options: {}

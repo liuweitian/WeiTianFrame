@@ -3,7 +3,7 @@
             :title="modalTitle"
             :visible.sync="show"
             :modal="false"
-            :width="modalWidth"
+            :width="modalSize"
             :close-on-click-modal="false"
             @closed="onClose"
     >
@@ -29,8 +29,8 @@
             modalView() {
                 return this.modal.view;
             },
-            modalWidth() {
-                return this.modal.width;
+            modalSize() {
+                return this.modal.size;
             },
         },
         data() {

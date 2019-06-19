@@ -7,6 +7,10 @@ export default {
     // 运行环境
     env: 'dev',
 
+    ui: {
+        plugin: 'element',
+    },
+
     // 接口配置
     api: {
         // 默认解析配置
