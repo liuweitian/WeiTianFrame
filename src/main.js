@@ -5,16 +5,13 @@ import VueAxios from 'vue-axios';
 import VueCookies from 'vue-cookies';
 import store from './store';
 import router from './routers';
-import api from './configs/api';
 import main from './configs/main';
+import './plugins/element.js';
 
 Vue.config.productionTip = main.debug;
 
 Vue.use(VueAxios, axios);
 Vue.use(VueCookies);
-
-window.$main = main;
-window.$api = api;
 
 store.commit('setAccessToken', VueCookies.get('accessToken'), true);
 

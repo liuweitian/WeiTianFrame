@@ -35,7 +35,7 @@ export default {
         }
     },
 
-    logout(state) {
+    logout() {
         // 不要再这里头做跳转，跳转的话会死循环
         this.commit('setAccessToken', undefined);
     },

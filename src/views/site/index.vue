@@ -1,6 +1,6 @@
 <template>
     <div class="site-index">
-        首页
+        <h1>首页</h1>
     </div>
 </template>
 

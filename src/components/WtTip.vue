@@ -1,7 +1,5 @@
 <template>
-    <div class="wtf-frame">
-        {{this.text}}
-    </div>
+    <small></small>
 </template>
 
 <script>
@@ -11,25 +9,19 @@
             tip() {
                 return this.$store.state.tip;
             },
-            text() {
-                return this.$store.state.tip.text;
+            id() {
+                return this.$store.state.tip.id;
             }
         },
-        data() {
-            return {
-                timeoutFlag: undefined,
-            };
-        },
         watch: {
-            text() {
-                if( !this.tip.text ) {
-                    clearTimeout( this.timeoutFlag );
-                } else {
-                    setTimeout(() => {
-                        this.$store.commit('update', { target: this.tip, data: { text: '' } })
-                    }, this.tip.duration);
-                }
-            },
+            id() {
+                this.$message({
+                    showClose: true,
+                    message: this.tip.text,
+                    type: this.tip.type,
+                    duration: this.tip.duration,
+                });
+            }
         }
     }
 </script>

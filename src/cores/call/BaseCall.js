@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import main from '../../configs/main';
+import api from '../../configs/api';
 import ObjectHelper from "../helpers/ObjectHelper";
 export default class BaseCall {
 
@@ -8,7 +10,7 @@ export default class BaseCall {
      * @returns {{}|null}
      */
     static getUrlForName(name) {
-        return ObjectHelper.getValue( $api, name, null );
+        return ObjectHelper.getValue( api, name, null );
     }
 
     /**
@@ -18,6 +20,7 @@ export default class BaseCall {
      */
     static defaultErrorCallback(response, status) {
         // 访问出错的默认处理逻辑
+        main.api && typeof main.api.errorCallBack === 'function' && main.api.errorCallBack( response, status );
     }
 
     static dataParse(response, data) {
@@ -35,6 +38,12 @@ export default class BaseCall {
      * @param {function} successCb
      */
     static pathParse( response, urlItem, successCb ) {
+        if( main.api && main.api.defaultMaps ) {
+            if( typeof urlItem.maps !== 'object' ) {
+                urlItem.maps = main.api.defaultMaps;
+            }
+        }
+
         // 查询规则必须是个object才会进行处理
         if( typeof urlItem.maps === 'object') {
             for ( let map of urlItem.maps )  {
