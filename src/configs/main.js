@@ -8,7 +8,7 @@ export default {
     env: 'dev',
 
     ui: {
-        plugin: 'element',
+        plugin: 'yd',
     },
 
     // 接口配置

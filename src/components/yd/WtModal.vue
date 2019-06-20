@@ -1,5 +1,9 @@
 <template>
     <yd-popup v-model="show" position="bottom" :height="modalSize">
+        <yd-navbar v-if="modalTitle" :title="modalTitle" height=".7rem">
+            <span slot="left" v-on:click="onClose('cancel')">取消</span>
+            <span slot="right" v-on:click="onClose('confirm')">确认</span>
+        </yd-navbar>
         <component v-bind:is="modalView"></component>
     </yd-popup>
 </template>
@@ -8,8 +12,11 @@
     export default {
         name: "WtModal",
         methods: {
-            onClose() {
-                typeof this.modal.onClose === 'function' ? this.modal.onClose() : '';
+            onClose(type) {
+                typeof this.modal.onClose === 'function' ? this.modal.onClose(type, this.closeModal) : '';
+            },
+            closeModal() {
+                this.$store.dispatch('hideModal');
             }
         },
         computed: {
@@ -21,6 +28,9 @@
             },
             modalSize() {
                 return this.modal.size;
+            },
+            modalTitle() {
+                return this.modal.title;
             },
         },
         data() {
@@ -39,5 +49,7 @@
 </script>
 
 <style scoped>
-
+    span {
+        color: #333;
+    }
 </style>

@@ -8,7 +8,15 @@
     import WtPlugins from "./components/WtPlugins";
     export default {
         name: 'app',
-        components: {WtPlugins}
+        components: {WtPlugins},
+        mounted() {
+            this.$store.dispatch("showModal", {
+                title: "模态框标题",
+                size: "300px",
+                view: undefined,
+                options: {},
+            });
+        }
     }
 </script>
 

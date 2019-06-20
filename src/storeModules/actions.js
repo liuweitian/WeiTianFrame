@@ -125,4 +125,37 @@ export default {
             }
         });
     },
+
+    /**
+     * 显示loading遮罩
+     * @param {object} store
+     * @param {string} text 提示内容
+     * @param {function} run loading时需要执行的代码
+     */
+    showLoading(store, { text, run }) {
+        text = text ? text : '正在加载';
+        store.commit('update', {
+            target: store.state.loading,
+            data: {
+                show: true,
+                text: text,
+                run: run,
+            }
+        });
+    },
+
+    /**
+     * 关闭loading遮罩
+     * @param {object} store
+     */
+    hideLoading(store) {
+        store.commit('update', {
+            target: store.state.loading,
+            data: {
+                show: false,
+                text: '',
+                handle: undefined,
+            }
+        });
+    }
 };

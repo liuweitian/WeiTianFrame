@@ -2,6 +2,7 @@ import tip from './states/tip';
 import modal from './states/modal';
 import notice from './states/notice';
 import messageBox from './states/messageBox';
+import loading from './states/loading';
 import User from '../models/User';
 let user = new User();
 export default {
@@ -16,6 +17,9 @@ export default {
 
     // 对话框
     messageBox: messageBox,
+
+    // loading遮罩
+    loading: loading,
 
     // 用户模块，管理登录、注销以及用户信息
     user: user,
