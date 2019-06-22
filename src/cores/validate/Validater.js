@@ -2,6 +2,7 @@ import String from "./String";
 import ObjectHelper from "../helpers/ObjectHelper";
 import Number from "./Number";
 import Required from "./Required";
+import Compare from "./Compare";
 
 export default class Validater {
     /**
@@ -17,15 +18,23 @@ export default class Validater {
             for (let m in rules) {
                 let item = rules[m];
                 if (item.attribute === name) {
+                    let label = model.getLabel(item.attribute);
+                    let value = data[name];
+                    let options = ObjectHelper.getValue(item, 'options', {});
                     switch (item.validate) {
                         case 'Required':
-                            result.push(Required.validate(model.getLabel(item.attribute), name, data[name], ObjectHelper.getValue(item, 'options', {})));
+                            result.push(Required.validate(label, name, value, options));
                             break;
                         case 'Number':
-                            result.push(Number.validate(model.getLabel(item.attribute), name, data[name], ObjectHelper.getValue(item, 'options', {})));
+                            result.push(Number.validate(label, name, value, options));
                             break;
                         case 'String':
-                            result.push(String.validate(model.getLabel(item.attribute), name, data[name], ObjectHelper.getValue(item, 'options', {})));
+                            result.push(String.validate(label, name, value, options));
+                            break;
+                        case 'Compare':
+                            options.targetValue = data[ options.target ];
+                            options.targetLabel = model.getLabel( options.target );
+                            result.push(Compare.validate(label, name, value, options));
                             break;
                     }
                 }

@@ -6,7 +6,7 @@ import VueCookies from 'vue-cookies';
 import store from './store';
 import router from './routers';
 import main from './configs/main';
-
+import './plugins/baiduMap.js';
 
 Vue.config.productionTip = main.debug;
 

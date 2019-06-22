@@ -6,22 +6,19 @@
 
 <script>
     import WtPlugins from "./components/WtPlugins";
+    import WtBaiduMap from "./components/baiduMap/WtBaiduMap";
     export default {
         name: 'app',
         components: {WtPlugins},
-        mounted() {
-            this.$store.dispatch("showModal", {
-                title: "模态框标题",
-                size: "300px",
-                view: undefined,
-                options: {},
-            });
-        }
     }
 </script>
 
 <style>
     body {
         margin: 0;
+    }
+
+    #app {
+        height: 100%;
     }
 </style>
