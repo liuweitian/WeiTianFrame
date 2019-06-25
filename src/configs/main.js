@@ -7,8 +7,9 @@ export default {
     // 运行环境
     env: 'dev',
 
+    // ui配置
     ui: {
-        plugin: 'yd',
+        plugin: 'element',
     },
 
     // 接口配置
@@ -40,6 +41,16 @@ export default {
         // 这个时默认处理，如果在get或者post时传递了errorCb（第四个参数），则默认使用自定义处理，否则执行它
         errorCallBack(response, status) {
             console.log( response, status );
-        }
+        },
+
+        // 授权信息
+        auth: {
+            // 是否自动在header中添加授权校验信息
+            autoAdd: true,
+            // 授权header键名
+            authName: 'Authorization',
+            // 授权值模板，{token}表示具体的token值，将从store.state.user.getAccessToken()获取
+            authTemplate: 'Bearer {token}',
+        },
     }
 };

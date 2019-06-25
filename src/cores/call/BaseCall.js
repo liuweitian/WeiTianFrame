@@ -2,6 +2,7 @@ import Vue from 'vue';
 import main from '../../configs/main';
 import api from '../../configs/api';
 import ObjectHelper from "../helpers/ObjectHelper";
+import store from '../../store';
 export default class BaseCall {
 
     /**
@@ -71,6 +72,21 @@ export default class BaseCall {
     }
 
     /**
+     * 处理header信息
+     * @param options
+     * @returns {*}
+     */
+    static parseOptions(options) {
+        options.params = options.params || {};
+        options.headers = options.headers || {};
+        let authConfig = main.api.auth;
+        if( authConfig && authConfig.autoAdd === true && store.state.user.getAccessToken() ) {
+            options.headers[ authConfig.authName ] = authConfig.authTemplate.replace('{token}', store.state.user.getAccessToken() );
+        }
+        return options;
+    }
+
+    /**
      * 以GET方式访问url
      * @param {string} urlName
      * @param {{params, headers}} options
@@ -80,7 +96,7 @@ export default class BaseCall {
     static get(urlName, options, successCb, errorCb) {
         let urlItem = this.getUrlForName(urlName);
 
-        Vue.axios.get(urlItem.url, options).then((r) => {
+        Vue.axios.get(urlItem.url, this.parseOptions( options )).then((r) => {
             this.pathParse( r, urlItem, successCb );
         }, (e) => {
             let r = e.response;
@@ -98,6 +114,7 @@ export default class BaseCall {
      */
     static post(urlName, options, successCb, errorCb) {
         let urlItem = this.getUrlForName(urlName);
+        options = this.parseOptions( options );
 
         Vue.axios.post(urlItem.url, options.params, { headers: options.headers }).then((r) => {
             this.pathParse( r, urlItem, successCb );

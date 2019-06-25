@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <wt-plugins></wt-plugins>
+        <wt-baidu-map></wt-baidu-map>
     </div>
 </template>
 
@@ -9,13 +10,14 @@
     import WtBaiduMap from "./components/baiduMap/WtBaiduMap";
     export default {
         name: 'app',
-        components: {WtPlugins},
+        components: {WtBaiduMap, WtPlugins},
     }
 </script>
 
 <style>
-    body {
+    html,body {
         margin: 0;
+        height: 100%;
     }
 
     #app {

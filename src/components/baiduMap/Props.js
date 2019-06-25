@@ -5,7 +5,7 @@ export default {
 
     // 地图中心
     center: {
-        type: String,
+        type: [String, Object],
         default: '北京'
     },
 
@@ -13,6 +13,29 @@ export default {
     zoom: {
         type: Number,
         default: 16,
+    },
+
+    /**
+     * 热力图配置
+     */
+    heatMapConfig: {
+        type: Object,
+        default() {
+            return {
+                max: 100, // 最大权重值
+                radius: 10, // 热力元素半径
+            };
+        }
+    },
+
+    /**
+     * 热力图点列表
+     */
+    heatMapPoints: {
+        type: Array,
+        default() {
+            return [];
+        }
     },
 
     /**

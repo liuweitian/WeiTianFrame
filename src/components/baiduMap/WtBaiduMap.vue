@@ -9,6 +9,13 @@
             @ready="_ready"
             :map-click="false"
     >
+        <!--热力图-->
+        <bml-heatmap
+                :data="heatMapPoints"
+                :max="heatMapConfig.max"
+                :radius="heatMapConfig.radius">
+        </bml-heatmap>
+
         <!--比例尺-->
         <bm-scale anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :offset="{width: 9, height: 5}"></bm-scale>
 
@@ -213,17 +220,21 @@
              * @param {string} id 覆盖物ID
              */
             removeMarker(id) {
-                delete this.markerList[id];
-                this.$nextTick(() => {
-                    let ref = this.$refs['marker-' + id];
-                    let refLabel = this.$refs['marker-label-' + id];
-                    if (typeof ref === 'object' && ref.length) {
-                        ref[0].unload();
-                    }
-                    if (typeof refLabel === 'object' && refLabel.length) {
-                        refLabel[0].unload();
-                    }
-                });
+                let marker = this.getMarker( id );
+                if( marker ) {
+                    this.closeInfoWindow();
+                    delete this.markerList[id];
+                    this.$nextTick(() => {
+                        let ref = this.$refs['marker-' + id];
+                        let refLabel = this.$refs['marker-label-' + id];
+                        if (typeof ref === 'object' && ref.length) {
+                            ref[0].unload();
+                        }
+                        if (typeof refLabel === 'object' && refLabel.length) {
+                            refLabel[0].unload();
+                        }
+                    });
+                }
             },
 
             /**

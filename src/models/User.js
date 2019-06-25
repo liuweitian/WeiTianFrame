@@ -43,8 +43,20 @@ class User extends BaseModel {
         } );
     }
 
+    /**
+     * 是否登录
+     * @returns {boolean}
+     */
     isLogin() {
         return this.data.accessToken !== undefined;
+    }
+
+    /**
+     * 获取授权令牌
+     * @returns {string}
+     */
+    getAccessToken() {
+        return this.data.accessToken;
     }
 }
 
