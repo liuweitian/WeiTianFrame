@@ -12,6 +12,12 @@ export default {
         plugin: 'element',
     },
 
+    // 图标配置
+    icon: {
+        // 默认大小
+        defaultSize: '12px'
+    },
+
     // 接口配置
     api: {
         // 默认解析配置
