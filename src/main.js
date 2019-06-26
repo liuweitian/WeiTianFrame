@@ -7,6 +7,7 @@ import store from './store';
 import router from './routers';
 import main from './configs/main';
 import './plugins/baiduMap.js';
+import './plugins/wtIconFont.js';
 
 Vue.config.productionTip = main.debug;
 

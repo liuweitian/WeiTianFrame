@@ -8,9 +8,10 @@
 <script>
     import WtPlugins from "./components/WtPlugins";
     import WtBaiduMap from "./components/baiduMap/WtBaiduMap";
+    import WtIcon from "./components/WtIcon";
     export default {
         name: 'app',
-        components: {WtBaiduMap, WtPlugins},
+        components: {WtIcon, WtBaiduMap, WtPlugins},
     }
 </script>
 
