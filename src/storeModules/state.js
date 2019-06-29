@@ -23,4 +23,7 @@ export default {
 
     // 用户模块，管理登录、注销以及用户信息
     user: user,
+
+    // 权限列表
+    permission: [],
 };

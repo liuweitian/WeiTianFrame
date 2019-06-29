@@ -13,6 +13,12 @@ export default {
         }
     },
 
+    push(state, {target, data}) {
+        for( let index in data ) {
+            target.push( data[index] );
+        }
+    },
+
     /**
      * 登录
      * @param state

@@ -1,1 +1,0 @@
-import './wtIconFont/wt.icon.font.css';

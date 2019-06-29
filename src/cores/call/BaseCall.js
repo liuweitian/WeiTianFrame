@@ -3,6 +3,7 @@ import main from '../../configs/main';
 import api from '../../configs/api';
 import ObjectHelper from "../helpers/ObjectHelper";
 import store from '../../store';
+import Permission from "../helpers/Permission";
 export default class BaseCall {
 
     /**
@@ -87,6 +88,27 @@ export default class BaseCall {
     }
 
     /**
+     * 判断是否允许访问
+     * @param {{permission, permissionAnd, permissionOr}} urlItem
+     * @returns {boolean|*}
+     */
+    static allowCall(urlItem) {
+        if( urlItem.permission && typeof urlItem.permission === 'string') {
+            return Permission.hasPermission( urlItem.permission );
+        }
+
+        if( urlItem.permissionAnd && typeof urlItem.permissionAnd === 'object') {
+            return Permission.hasPermissionAnd( urlItem.permissionAnd );
+        }
+
+        if( urlItem.permissionOr && typeof urlItem.permissionOr === 'object') {
+            return Permission.hasPermissionOr( urlItem.permissionOr );
+        }
+
+        return true;
+    }
+
+    /**
      * 以GET方式访问url
      * @param {string} urlName
      * @param {{params, headers}} options
@@ -95,6 +117,12 @@ export default class BaseCall {
      */
     static get(urlName, options, successCb, errorCb) {
         let urlItem = this.getUrlForName(urlName);
+
+        if( !this.allowCall( urlItem ) ) {
+            let res = { status: 403, message: '无权访问' };
+            typeof errorCb === 'function' ? errorCb( res, 403 ) : this.defaultErrorCallback(res, 403);
+            return;
+        }
 
         Vue.axios.get(urlItem.url, this.parseOptions( options )).then((r) => {
             this.pathParse( r, urlItem, successCb );
@@ -115,6 +143,12 @@ export default class BaseCall {
     static post(urlName, options, successCb, errorCb) {
         let urlItem = this.getUrlForName(urlName);
         options = this.parseOptions( options );
+
+        if( !this.allowCall( urlItem ) ) {
+            let res = { status: 403, message: '无权访问' };
+            typeof errorCb === 'function' ? errorCb( res, 403 ) : this.defaultErrorCallback(res, 403);
+            return;
+        }
 
         Vue.axios.post(urlItem.url, options.params, { headers: options.headers }).then((r) => {
             this.pathParse( r, urlItem, successCb );

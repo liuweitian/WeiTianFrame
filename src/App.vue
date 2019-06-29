@@ -1,7 +1,8 @@
 <template>
     <div id="app">
         <wt-plugins></wt-plugins>
-        <wt-baidu-map></wt-baidu-map>
+
+        <router-view></router-view>
     </div>
 </template>
 
@@ -9,7 +10,7 @@
     import WtPlugins from "./components/WtPlugins";
     export default {
         name: 'app',
-        components: {WtBaiduMap, WtPlugins},
+        components: {WtPlugins}
     }
 </script>
 
@@ -21,5 +22,14 @@
 
     #app {
         height: 100%;
+    }
+
+    .wt-hide {
+        display: none !important;
+    }
+
+    #app .empty-text {
+        text-align: center;
+        color: #999;
     }
 </style>

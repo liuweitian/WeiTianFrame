@@ -6,14 +6,15 @@ import VueCookies from 'vue-cookies';
 import store from './store';
 import router from './routers';
 import main from './configs/main';
-import './plugins/baiduMap.js';
-import './plugins/wtIconFont.js';
+import './plugins/wt.js';
 
+// 开发调试提示
 Vue.config.productionTip = main.debug;
 
 Vue.use(VueAxios, axios);
 Vue.use(VueCookies);
 
+// 从cookie中读取token
 store.commit('setAccessToken', VueCookies.get('accessToken'), true);
 
 let ui = main.ui;

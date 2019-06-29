@@ -4,6 +4,10 @@ import SiteIndex from '../views/site/index';
 import SiteLogin from '../views/site/login';
 import store from "../store";
 
+import ErrorNotFound from '../views/error/notFound';
+import ErrorNotAllow from '../views/error/notAllow';
+import Permission from "../cores/helpers/Permission";
+
 Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
@@ -23,15 +27,53 @@ const router = new VueRouter({
             label: '登录',
             component: SiteLogin,
         },
+        {
+            path: '*',
+            name: 'notFound',
+            label: '未找到页面',
+            component: ErrorNotFound
+        },
+        {
+            path: '/error/notFound',
+            name: 'notFound',
+            label: '未找到页面',
+            component: ErrorNotFound
+        },
+        {
+            path: '/error/notAllow',
+            name: 'notAllow',
+            label: '未授权访问',
+            component: ErrorNotAllow,
+        },
     ]
 });
 
 router.beforeEach((to, from, next) => {
+
+    // 授权访问
+    let allow = true;
+    if( to.meta.permission && typeof to.meta.permission === 'string') {
+        allow = Permission.hasPermission( to.meta.permission );
+    }
+    if( to.meta.permissionAnd && typeof to.meta.permissionAnd === 'object') {
+        allow = Permission.hasPermissionAnd( to.meta.permissionAnd );
+    }
+    if( to.meta.permissionOr && typeof to.meta.permissionOr === 'object') {
+        allow = Permission.hasPermissionOr( to.meta.permissionOr );
+    }
+    if( !allow ) {
+        router.push('/error/notAllow');
+        return;
+    }
+
+
+
+    // 如果路由规定需要登录则判断登录状态，未登录将强制返回登录页
     if( to.meta.login === true && !store.state.user.isLogin() ) {
         setTimeout(() => {
             if (!store.state.user.isLogin()) {
                 store.commit('logout');
-                router.push('site/login');
+                router.push('/site/login');
             } else {
                 next();
             }
