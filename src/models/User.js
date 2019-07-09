@@ -36,9 +36,9 @@ class User extends BaseModel {
      * @param {function} fn 回调
      */
     login(params, fn) {
-        BaseCall.post( 'login', { params: params }, (type, message, res) => {
+        BaseCall.post( 'login', { params: params }, ({type, message}, res) => {
             if( type !== 'success' ) {
-                typeof fn === 'function' ? fn(type, message, res) : '';
+                typeof fn === 'function' ? fn({type, message}, res) : '';
             }
         } );
     }
@@ -48,7 +48,7 @@ class User extends BaseModel {
      * @returns {boolean}
      */
     isLogin() {
-        return this.data.accessToken !== undefined;
+        return this.getAccessToken() !== undefined;
     }
 
     /**
@@ -56,7 +56,7 @@ class User extends BaseModel {
      * @returns {string}
      */
     getAccessToken() {
-        return this.data.accessToken;
+        return this.accessToken;
     }
 }
 
