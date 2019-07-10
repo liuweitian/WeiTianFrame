@@ -2,7 +2,7 @@ export class Marker {
     constructor({ id, position, size, infoWindow, label, icon, wtBaiduMap, onClick, open }) {
         this.id = id;
         this.position = position;
-        this.size = size || { width: 42, height: 42 };
+        this.size = size || { width: 32, height: 32 };
         this.infoWindow = infoWindow;
         this.onClick = onClick;
         this.icon = icon;

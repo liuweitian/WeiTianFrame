@@ -179,10 +179,12 @@
              * @param {object} content 气泡框内容
              * @param {function} onClick 点击图标的回调函数
              * @param {boolean} autoOpen 自动打开气泡框，默认false
+             * @param {boolean} autoCenter 是否自动居中，默认false
              */
-            addMarker({id, position, labelOptions, size, icon, content, onClick, autoOpen}) {
+            addMarker({id, position, labelOptions, size, icon, content, onClick, autoOpen, autoCenter}) {
                 let infoWindow = undefined;
                 let label = undefined;
+                autoCenter = autoCenter === true ? true : false;
                 if (typeof content === 'object') {
                     infoWindow = new InfoWindow({
                         position: position,
@@ -213,6 +215,13 @@
                 let data = {};
                 data[id] = marker;
                 this.markerList = Object.assign({}, this.markerList, data);
+
+                if( autoCenter ) {
+                    clearTimeout( this.setCenterFlag );
+                    this.setCenterFlag = setTimeout(() => {
+                        this.center = position;
+                    }, 100);
+                }
             },
 
             /**

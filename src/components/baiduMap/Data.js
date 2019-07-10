@@ -8,6 +8,8 @@ export default function() {
          */
         mapType: 'BMAP_NORMAL_MAP',
 
+        setCenterFlag: undefined,
+
         jMap: undefined,
 
         bMap: undefined,
