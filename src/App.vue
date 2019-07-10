@@ -1,7 +1,6 @@
 <template>
     <div id="app">
         <wt-plugins></wt-plugins>
-
         <router-view></router-view>
     </div>
 </template>
@@ -10,7 +9,7 @@
     import WtPlugins from "./components/WtPlugins";
     export default {
         name: 'app',
-        components: {WtPlugins}
+        components: {WtPlugins},
     }
 </script>
 

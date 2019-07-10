@@ -1,3 +1,5 @@
+let env = process.env.NODE_ENV;
+
 export default {
     appName: '尾田框架',
 
@@ -5,7 +7,7 @@ export default {
     debug: true,
 
     // 运行环境
-    env: 'dev',
+    env: env === "production" ? 'prod' : 'dev',
 
     // ui配置
     ui: {

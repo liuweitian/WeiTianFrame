@@ -6,12 +6,6 @@
 密码：123123
 ```
 
-## 说明
-```
-由于开启了ESLint，所以开发运行时会报 Unexpected console statement
-请在正式上线时确保满足ESLint规范，养成良好的代码风格很重要
-```
-
 ## 安装方式
 ```
 npm install
@@ -19,10 +13,19 @@ npm install
 
 ### 开发运行
 ```
-npm run serve
+npm run serve-dev
 ```
 
-### 构建
+### 开发构建
 ```
-npm run build
+npm run build-dev
+
+### 生产运行
+```
+npm run serve-prod
+```
+
+### 生产构建
+```
+npm run build-prod
 ```
