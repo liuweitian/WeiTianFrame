@@ -2,8 +2,7 @@
 
 ## 文档
 ```
-链接：https://www.showdoc.cc/300548601360929
-密码：123123
+链接：http://doc.wtf.ajser.cn
 ```
 
 ## 安装方式
