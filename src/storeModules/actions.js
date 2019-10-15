@@ -34,17 +34,27 @@ export default {
         title = title || '';
         size = size || '600px';
         options = options || {};
-        store.commit('update', {
+
+        // 显示新view之前先关闭掉旧的view，否则重复打开同一个view时会导致页面不加载
+        store.commit( 'update', {
             target: store.state.modal,
-            data: {
-                title: title,
-                view: view,
-                size: size,
-                onClose: onClose,
-                options: options,
-                id: Math.random(),
-            }
-        });
+            data: { onClose: undefined }
+        } );
+        store.dispatch('hideModal');
+
+        setTimeout(() => {
+            store.commit('update', {
+                target: store.state.modal,
+                data: {
+                    title: title,
+                    view: view,
+                    size: size,
+                    onClose: onClose,
+                    options: options,
+                    id: Math.random(),
+                }
+            });
+        }, 100);
     },
 
     /**
