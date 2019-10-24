@@ -6,7 +6,7 @@ export default class Models {
          * 需要修改该数据使用实例方法，比如push，splice，pop等
          * @type {[ BaseModel ]}
          */
-        this.list = list.reverse();
+        this.list = list;
 
         /**
          * 索引列表，键名为对应model的Id
