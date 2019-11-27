@@ -36,10 +36,11 @@ class User extends BaseModel {
      * @param {function} fn 回调
      */
     login(params, fn) {
-        BaseCall.post( 'login', { params: params }, ({type, message}, res) => {
+        BaseCall.post( 'login', { params: params }, ({type, data}, res) => {
             if( type !== 'success' ) {
-                typeof fn === 'function' ? fn({type, message}, res) : '';
+                this.updateData(data.data);
             }
+            typeof fn === 'function' ? fn({type, data}, res) : '';
         } );
     }
 

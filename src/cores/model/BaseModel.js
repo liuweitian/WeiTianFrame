@@ -212,6 +212,13 @@ export default class BaseModel {
         else if (this.data[attr + this.dataDictPostfix]) {
             return this.data[attr + this.dataDictPostfix];
         }
+        // 如果定义了格式化类，则使用格式化类
+        else if( typeof format[attr].formatter === 'function' ) {
+            let Class = format[attr].formatter;
+            let options = format[attr].formatterOptions;
+            let formatter = options ? new Class( value, options ) : new Class(value);
+            return formatter.getValue();
+        }
 
         return value;
     }

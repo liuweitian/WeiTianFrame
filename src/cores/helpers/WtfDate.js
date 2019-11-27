@@ -44,4 +44,32 @@ export default class WtfDate {
             .replace('i', minute)
             .replace('s', second);
     }
+
+    /**
+     * 格式化秒数
+     * @param {int} second
+     * @param {string} format 格式化
+     * @returns {string}
+     */
+    static formatSecond(second, format = 'H:i:s') {
+        second = parseInt(second);
+        let hours, mins, seconds, days;
+
+        seconds = this.addZero( parseInt(second % 60) );
+        mins = this.addZero( parseInt(second % 3600 / 60) );
+        hours = this.addZero( parseInt(second / 3600) );
+        days = parseInt( second / 86400 );
+
+        format = format.replace('d', days);
+        format = format.replace('H', hours);
+        format = format.replace('i', mins);
+        format = format.replace('s', seconds);
+
+        return format;
+    }
+
+    //补零
+    static addZero(str) {
+        return new RegExp(/^\d$/g).test(str) ? `0${str}` : str;
+    }
 }
