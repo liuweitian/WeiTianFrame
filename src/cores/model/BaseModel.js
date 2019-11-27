@@ -200,6 +200,14 @@ export default class BaseModel {
         let format = this[formatName];
         let value = this.data[attr];
 
+        // 如果定义了格式化类，则使用格式化类
+        if( typeof format[attr].formatter === 'function' ) {
+            let Class = format[attr].formatter;
+            let options = format[attr].formatterOptions;
+            let formatter = options ? new Class( value, options ) : new Class(value);
+            value = formatter.getValue();
+        }
+
         // 如果指定format配置的对应字段已经定义了getValue方法，则直接调用它
         if (typeof format[attr].value === 'function') {
             return format[attr].value({data: this.data, format: format, options: options});
@@ -211,13 +219,6 @@ export default class BaseModel {
         // 如果原数据中已经定义原字段的字典映照字段，则读取它返回
         else if (this.data[attr + this.dataDictPostfix]) {
             return this.data[attr + this.dataDictPostfix];
-        }
-        // 如果定义了格式化类，则使用格式化类
-        else if( typeof format[attr].formatter === 'function' ) {
-            let Class = format[attr].formatter;
-            let options = format[attr].formatterOptions;
-            let formatter = options ? new Class( value, options ) : new Class(value);
-            return formatter.getValue();
         }
 
         return value;
