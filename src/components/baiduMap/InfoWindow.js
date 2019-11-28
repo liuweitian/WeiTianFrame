@@ -19,10 +19,10 @@ export class InfoWindow {
     }
 
     getContent() {
-        let html = '<div style="width: '+ this.width +';">';
+        let html = '<div style="width: '+ this.width +'; margin: 0 auto;">';
         for ( let key in this.content ) {
             let value = this.content[key]
-            html += `<p><label>${key}：</label>${value}</p>`;
+            html += `<div style="font-size: 14px; line-height: 1.5;"><label>${key}：</label>${value}</div>`;
         }
         html += '</div>';
         return html;

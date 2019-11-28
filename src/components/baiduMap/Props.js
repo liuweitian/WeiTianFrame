@@ -1,12 +1,7 @@
 export default {
-    ready: {
-        type: Function,
-    },
-
     // 地图中心
     center: {
         type: [String, Object],
-        default: '北京'
     },
 
     // 缩放值

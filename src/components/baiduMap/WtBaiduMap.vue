@@ -43,8 +43,9 @@
         <bm-panorama :offset="{width: 5, height: 50}" anchor="BMAP_ANCHOR_TOP_LEFT"></bm-panorama>
 
         <!--覆盖物-->
-        <template v-for="marker of markerList">
+        <span v-for="(marker, index) of markerList" :key="'marker-' + index">
             <bm-marker
+                    :key="'bm-marker-' + index"
                     :ref="'marker-' + marker.id"
                     class="wt-image-marker"
                     :position="marker.position"
@@ -54,6 +55,7 @@
             </bm-marker>
 
             <bm-label
+                    :key="'bm-label-' + index"
                     :ref="'marker-label-' + marker.id"
                     v-if="typeof marker.label === 'object'"
                     :content="marker.label.text"
@@ -61,7 +63,7 @@
                     :label-style="marker.label.style"
             >
             </bm-label>
-        </template>
+        </span>
 
         <!--控制面板-->
         <bm-control :offset="{width: 5, height: 15}" v-if="showBtn">
@@ -134,12 +136,12 @@
                 this.jMap = map;
                 this.bMap = BMap;
 
-                let params = {
+                let maps = {
                     vMap: this,
                     jMap: map,
                     bMap: BMap,
                 };
-                typeof this.ready === 'function' ? this.ready(params) : '';
+                this.$emit('ready', maps);
             },
 
             // 海量点点击
@@ -149,9 +151,14 @@
 
             /**
              * 打开气泡框
-             * @param {InfoWindow} infoWindow
+             * @param {InfoWindow|string} window infoWindow实例或者覆盖物ID
              */
-            openInfoWindow(infoWindow) {
+            openInfoWindow(window) {
+                let infoWindow = window;
+                if (typeof window === 'string') {
+                    infoWindow = this.getMarker(window).infoWindow;
+                }
+
                 this.infoWindowPosition = infoWindow.position;
                 this.infoWindowContent = infoWindow.getContent();
                 this.showInfoWindow = false;
@@ -216,10 +223,10 @@
                 data[id] = marker;
                 this.markerList = Object.assign({}, this.markerList, data);
 
-                if( autoCenter ) {
-                    clearTimeout( this.setCenterFlag );
+                if (autoCenter) {
+                    clearTimeout(this.setCenterFlag);
                     this.setCenterFlag = setTimeout(() => {
-                        this.center = position;
+                        this._setCenter(position);
                     }, 100);
                 }
             },
@@ -229,8 +236,8 @@
              * @param {string} id 覆盖物ID
              */
             removeMarker(id) {
-                let marker = this.getMarker( id );
-                if( marker ) {
+                let marker = this.getMarker(id);
+                if (marker) {
                     this.closeInfoWindow();
                     delete this.markerList[id];
                     this.$nextTick(() => {
@@ -272,8 +279,8 @@
              * 编辑多边形围栏
              * @param e
              */
-            updatePolygonPath (e) {
-                if( typeof this.polygonPoints == 'object' && typeof this.fenceConfig.onChange === 'function') {
+            updatePolygonPath(e) {
+                if (typeof this.polygonPoints == 'object' && typeof this.fenceConfig.onChange === 'function') {
                     this.fenceConfig.onChange(e, 'polygon', this.polygonPoints);
                 }
             },
@@ -282,8 +289,8 @@
              * 编辑圆形围栏
              * @param e
              */
-            updateCirclePath (e) {
-                if( typeof this.circlePoints == 'object' && typeof this.fenceConfig.onChange === 'function') {
+            updateCirclePath(e) {
+                if (typeof this.circlePoints == 'object' && typeof this.fenceConfig.onChange === 'function') {
                     this.fenceConfig.onChange(e, 'polygon', this.circlePoints);
                 }
             },
@@ -292,11 +299,31 @@
              * 编辑折线图
              * @param e
              */
-            updatePolylinePath (e) {
-                if( typeof this.polylinePoints == 'object' && typeof this.fenceConfig.onChange === 'function') {
+            updatePolylinePath(e) {
+                if (typeof this.polylinePoints == 'object' && typeof this.fenceConfig.onChange === 'function') {
                     this.fenceConfig.onChange(e, 'polygon', this.polylinePoints);
                 }
-            }
+            },
+
+            /**
+             * 设置地图视野，使传入的经纬度全部都显示
+             * @param {array} points
+             */
+            setViewPort(points) {
+                this.jMap.setViewport(points);
+            },
+
+            /**
+             * 使用原生方式设置中心点
+             * @param {Object | String} position
+             * @private
+             */
+            _setCenter(position) {
+                if (typeof position === 'object') {
+                    position = new this.bMap.Point(position.lng, position.lat);
+                }
+                this.jMap.setCenter(position);
+            },
         },
     }
 </script>
@@ -321,6 +348,7 @@
             bottom: 15px;
         }
     }
+
     @media (min-width: 768px) {
         .wt-other-action {
             top: 15px;
