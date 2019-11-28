@@ -21,7 +21,9 @@
 
         <!--气泡框-->
         <bm-info-window :position="infoWindowPosition" :show="showInfoWindow">
-            <div class="wt-info-window" v-html="infoWindowContent"></div>
+            <div class="wt-info-window">
+                <component v-bind:is="infoWindowContent"></component>
+            </div>
         </bm-info-window>
 
         <!--缩放-->
@@ -131,7 +133,9 @@
         data: data,
         props: props,
         methods: {
-            // 地图初始化完成的回调函数
+            /**
+             * 地图初始化完成的回调函数
+             */
             _ready({map, BMap}) {
                 this.jMap = map;
                 this.bMap = BMap;
@@ -144,7 +148,9 @@
                 this.$emit('ready', maps);
             },
 
-            // 海量点点击
+            /**
+             * 海量点点击
+             */
             clickShapePoint(e, point) {
                 typeof this.shapeOnClick === 'function' ? this.shapeOnClick(e) : '';
             },
@@ -183,7 +189,7 @@
              * @param {{width, height}} size 图标大小
              * @param {object} labelOptions 中文标签选项
              * @param {string} icon 图标地址
-             * @param {object} content 气泡框内容
+             * @param {array} content 气泡框内容
              * @param {function} onClick 点击图标的回调函数
              * @param {boolean} autoOpen 自动打开气泡框，默认false
              * @param {boolean} autoCenter 是否自动居中，默认false
@@ -354,5 +360,15 @@
             top: 15px;
         }
     }
-</style>
 
+    .wt-baidu-map-info-window-container {
+        margin: 0 auto;
+    }
+
+    .wt-baidu-map-info-window-item {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #000;
+        margin-bottom: 2px;
+    }
+</style>
