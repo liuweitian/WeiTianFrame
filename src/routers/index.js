@@ -18,7 +18,6 @@ const router = new VueRouter({
             label: '首页',
             meta: {
                 login: true,
-                permission: '测试权限',
             },
             component: SiteIndex,
         },
