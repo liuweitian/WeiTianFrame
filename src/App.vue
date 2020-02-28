@@ -9,7 +9,6 @@
 <script>
     import NotAllow from "./views/error/notAllow";
     import WtPlugins from "./components/WtPlugins";
-    import Permission from "./cores/helpers/Permission";
     export default {
         name: 'app',
         components: {WtPlugins, NotAllow},
