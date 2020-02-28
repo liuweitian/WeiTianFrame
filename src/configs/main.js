@@ -1,5 +1,6 @@
-let env = process.env.NODE_ENV;
+import ObjectHelper from "../cores/helpers/ObjectHelper";
 
+let mode = process.env.NODE_ENV;
 export default {
     appName: '尾田框架',
 
@@ -7,7 +8,7 @@ export default {
     debug: true,
 
     // 运行环境
-    env: env === "production" ? 'prod' : 'dev',
+    env: { production: 'prod', development: 'dev', test: 'test' }[mode] || 'test',
 
     // ui配置
     ui: {
