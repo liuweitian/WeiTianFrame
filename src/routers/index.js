@@ -18,6 +18,7 @@ const router = new VueRouter({
             label: '首页',
             meta: {
                 login: true,
+                permission: '测试权限',
             },
             component: SiteIndex,
         },
@@ -51,22 +52,24 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 
     // 授权访问
-    let allow = true;
     if( to.meta.permission && typeof to.meta.permission === 'string') {
-        allow = Permission.hasPermission( to.meta.permission );
+        Permission.checkPermission({
+            condition: 'permission',
+            permission: to.meta.permission,
+        });
     }
     if( to.meta.permissionAnd && typeof to.meta.permissionAnd === 'object') {
-        allow = Permission.hasPermissionAnd( to.meta.permissionAnd );
+        Permission.checkPermission({
+            condition: 'permissionAnd',
+            permission: to.meta.permissionAnd,
+        });
     }
     if( to.meta.permissionOr && typeof to.meta.permissionOr === 'object') {
-        allow = Permission.hasPermissionOr( to.meta.permissionOr );
+        Permission.checkPermission({
+            condition: 'permissionOr',
+            permission: to.meta.permissionOr,
+        });
     }
-    if( !allow ) {
-        router.push('/error/notAllow');
-        return;
-    }
-
-
 
     // 如果路由规定需要登录则判断登录状态，未登录将强制返回登录页
     if( to.meta.login === true && !store.state.user.isLogin() ) {

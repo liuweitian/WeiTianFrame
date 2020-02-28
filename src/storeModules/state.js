@@ -26,4 +26,11 @@ export default {
 
     // 权限列表
     permission: [],
+
+    // 是否显示无权限
+    forbidden: {
+        state: false,
+        condition: undefined,
+        permission: undefined
+    }
 };

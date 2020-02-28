@@ -1,15 +1,39 @@
 <template>
     <div id="app">
         <wt-plugins></wt-plugins>
-        <router-view></router-view>
+        <router-view v-if="!forbidden.state"></router-view>
+        <not-allow v-else></not-allow>
     </div>
 </template>
 
 <script>
+    import NotAllow from "./views/error/notAllow";
     import WtPlugins from "./components/WtPlugins";
+    import Permission from "./cores/helpers/Permission";
     export default {
         name: 'app',
-        components: {WtPlugins},
+        components: {WtPlugins, NotAllow},
+        computed: {
+            forbidden() {
+                return this.$store.state.forbidden;
+            }
+        },
+        mounted() {
+            setTimeout(() => {
+                this.$store.commit('update', {
+                    target: this.$store.state,
+                    data: {
+                        permission: [
+                            '测试权限'
+                        ]
+                    }
+                });
+
+                if( this.$store.state.forbidden.state ) {
+                    Permission.refreshPermission();
+                }
+            }, 2000)
+        }
     }
 </script>
 
