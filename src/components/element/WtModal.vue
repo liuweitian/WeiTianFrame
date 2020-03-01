@@ -7,7 +7,7 @@
             :close-on-click-modal="false"
             @closed="onClose"
     >
-        <component v-bind:is="modalView"></component>
+        <component v-bind:is="modalView" v-bind="modalOptions"></component>
     </el-dialog>
 </template>
 
@@ -27,10 +27,13 @@
                 return this.modal.title;
             },
             modalView() {
-                return this.modal.view;
+                return Object.assign({}, this.modal.view);
             },
             modalSize() {
                 return this.modal.size;
+            },
+            modalOptions() {
+                return this.modal.options;
             },
         },
         data() {
@@ -42,7 +45,7 @@
         },
         watch: {
             modalId(id) {
-                this.show = id ? true : false;
+                this.show = !!id;
             }
         }
     }

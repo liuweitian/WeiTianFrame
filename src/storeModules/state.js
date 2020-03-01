@@ -3,8 +3,11 @@ import modal from './states/modal';
 import notice from './states/notice';
 import messageBox from './states/messageBox';
 import loading from './states/loading';
-import User from '../models/User';
+import User from '../models/dataModels/User';
+import permission from "./states/permission";
+import forbidden from "./states/forbidden";
 let user = new User();
+
 export default {
     // 消息提示
     tip: tip,
@@ -25,12 +28,8 @@ export default {
     user: user,
 
     // 权限列表
-    permission: [],
+    permission: permission,
 
     // 是否显示无权限
-    forbidden: {
-        state: false,
-        condition: undefined,
-        permission: undefined
-    }
+    forbidden: forbidden,
 };

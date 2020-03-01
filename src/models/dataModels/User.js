@@ -1,5 +1,5 @@
-import BaseModel from "../cores/model/BaseModel";
-import BaseCall from "../cores/call/BaseCall";
+import BaseModel from "../../cores/model/BaseModel";
+import BaseCall from "../../cores/call/BaseCall";
 
 class User extends BaseModel {
     constructor(data = {}) {

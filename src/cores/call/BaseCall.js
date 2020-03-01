@@ -25,6 +25,11 @@ export default class BaseCall {
         main.api && typeof main.api.errorCallBack === 'function' && main.api.errorCallBack( response, status );
     }
 
+    /**
+     * 数据处理
+     * @param {Object} response
+     * @param {Object} data
+     */
     static dataParse(response, data) {
         let result = {};
         for ( let name in data ) {

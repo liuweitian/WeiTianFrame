@@ -24,13 +24,16 @@
                 return this.modal.id;
             },
             modalView() {
-                return this.modal.view;
+                return Object.assign( {}, this.modal.view );
             },
             modalSize() {
                 return this.modal.size;
             },
             modalTitle() {
                 return this.modal.title;
+            },
+            modalOptions() {
+                return Object.assign( {}, this.modal.options );
             },
         },
         data() {
@@ -42,8 +45,8 @@
         },
         watch: {
             modalId(id) {
-                this.show = id ? true : false;
-            }
+                this.show = !!id;
+            },
         }
     }
 </script>

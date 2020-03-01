@@ -1,6 +1,3 @@
-import Permission from "../cores/helpers/Permission";
-import store from "../store";
-
 export default {
     /**
      * 全局消息提醒
