@@ -16,7 +16,9 @@
         name: "WtModal",
         methods: {
             onClose() {
-                typeof this.modal.onClose === 'function' ? this.modal.onClose() : '';
+                if( typeof this.modal.onClose === 'function' ) {
+                    this.modal.onClose( Object.assign( {}, this.$store.state.modal.options ) );
+                }
             }
         },
         computed: {
