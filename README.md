@@ -1,30 +1,24 @@
-# 基于Vue的轻封装框架
-
 ## 文档
 ```
-链接：http://doc.wtf.ajser.cn
+链接：http://doc.ajser.cn:4999/web/#/1
 ```
 
-## 安装方式
+## 安装
 ```
 npm install
 ```
 
-### 开发运行
+## 项目初始化
 ```
-npm run serve-dev
-```
-
-### 开发构建
-```
-npm run build-dev
-
-### 生产运行
-```
-npm run serve-prod
+node init.js
 ```
 
-### 生产构建
+### 本地运行
 ```
-npm run build-prod
+npm run serve-test
+```
+
+### 本读构建
+```
+npm run build-test
 ```
