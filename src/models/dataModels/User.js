@@ -1,5 +1,5 @@
 import BaseModel from "../../cores/model/BaseModel";
-import BaseCall from "../../cores/call/BaseCall";
+import store from "../../store";
 
 class User extends BaseModel {
     constructor(data = {}) {
@@ -32,16 +32,21 @@ class User extends BaseModel {
 
     /**
      * 登录
-     * @param {object} params 参数
      * @param {function} fn 回调
      */
-    login(params, fn) {
-        BaseCall.post( 'login', { params: params }, ({type, data}, res) => {
-            if( type !== 'success' ) {
-                this.updateData(data.data);
-            }
-            typeof fn === 'function' ? fn({type, data}, res) : '';
-        } );
+    login(fn) {
+        if( !this.validate() ) {
+            fn( { type: 'error', data: { message: this.getOneError() } } );
+        } else {
+            setTimeout(() => {
+                store.commit('setAccessToken', 'LJASD9FISJF8JSDF8SD8F');
+                this.updateData({
+                    name: '张三',
+                    phone: '13266666666'
+                });
+                fn({ type: 'success', data: { message: '登录成功', data: Object.assign( {}, this.data ) } });
+            });
+        }
     }
 
     /**
