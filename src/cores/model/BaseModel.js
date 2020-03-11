@@ -132,14 +132,15 @@ export default class BaseModel {
     /**
      * 根据原数据列表实力化模型列表
      * @param list
+     * @param instance
      * @returns {Models}
      */
-    static instanceList(list) {
+    static instanceList(list, instance = Models) {
         let _list = [];
         for ( let data of list ) {
             _list.push( new this(data) );
         }
-        return new Models(_list);
+        return new instance(_list);
     }
 
     /**

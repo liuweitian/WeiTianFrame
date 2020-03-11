@@ -12,6 +12,9 @@
     "build-test": "vue-cli-service build --mode=test",
     "build-dev": "vue-cli-service build --mode=development",
     "build-prod": "vue-cli-service build --mode=production",
+    "init-element": "node init.js element",
+    "init-yd": "node init.js yd",
+    "init": "node init.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

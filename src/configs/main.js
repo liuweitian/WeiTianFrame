@@ -1,5 +1,3 @@
-import ObjectHelper from "../cores/helpers/ObjectHelper";
-
 let mode = process.env.NODE_ENV;
 export default {
     appName: '尾田框架',
