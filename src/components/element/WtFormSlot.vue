@@ -17,6 +17,7 @@
             <el-input
                     v-model="model.data[ item.attribute ]"
                     v-if="item.type === 'input'"
+                    :clearable="item.clearable !== false"
                     v-bind="item.options"
             ></el-input>
 
@@ -24,6 +25,7 @@
                     style="width: 100%;"
                     v-model="model.data[ item.attribute ]"
                     type="datetime"
+                    :clearable="item.clearable !== false"
                     v-bind="item.options"
                     v-if="item.type === 'datetime'"
             >
@@ -33,6 +35,7 @@
                     style="width: 100%;"
                     v-model="model.data[ item.attribute ]"
                     type="date"
+                    :clearable="item.clearable !== false"
                     v-bind="item.options"
                     v-if="item.type === 'date'"
             >
@@ -41,6 +44,7 @@
             <el-select
                     v-model="model.data[ item.attribute ]"
                     v-if="item.type === 'select'"
+                    :clearable="item.clearable !== false"
                     v-bind="item.options"
             >
                 <el-option

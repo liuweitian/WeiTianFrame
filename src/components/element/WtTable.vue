@@ -93,7 +93,7 @@
              */
             _calcTableStyle() {
                 let style = {};
-                if (this.$refs.container) {
+                if (this.$refs.container && this.$refs.container.clientHeight) {
                     style.height = this.$refs.container.clientHeight;
                     style.height -= this.models.showSearchForm ? this.models.searchFormHeight : 0;
                     style.height -= this.models.showExtra ? this.models.extraHeight : 0;
@@ -136,6 +136,7 @@
                 return Object.assign({
                     background: true,
                     layout: 'prev, pager, next',
+                    'page-size': 20
                 }, this.models.pageOptions);
             },
 
@@ -146,8 +147,10 @@
              */
             _tableOptions() {
                 if( this.init ) {
+                    let style = this._calcTableStyle();
                     return Object.assign({
-                        style: this._calcTableStyle(),
+                        style: style,
+                        height: style.height || 0,
                         data: this._calcTableData(),
                     }, this.models.tableOptions);
                 }
@@ -176,9 +179,9 @@
             this.$emit('beforeMount');
         },
         mounted() {
-            this.init = true;
             this.models.onMounted( this );
             this.$emit('mounted');
+            this.init = true;
         },
         beforeUpdate() {
             this.models.onBeforeUpdate( this );

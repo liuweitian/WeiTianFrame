@@ -234,10 +234,72 @@ export default class TableModels extends Models {
     }
 
     /**
-     * 提交按钮点击事件
-     * @param {Event} event
+     * 展示loading浮层
+     * @param fn
      */
-    onSearchFormSubmit(event) {
+    loading(fn) {
+        this.component.$store.dispatch('showLoading', {
+            run: (closeHandle) => {
+                fn(closeHandle);
+            }
+        });
+    }
+
+    /**
+     * 更新原数据
+     * @param list
+     */
+    updateList(list) {
+        let models = [];
+        for ( let data of list ) {
+            models.push( new this.modelInstance.constructor(data) );
+        }
+        this.list = models;
+        this.generateIndex();
+    }
+
+    /**
+     * 渲染列表
+     * @param {array} list 原始数据
+     * @param {number} total 总条数
+     * @param {number} page 当前页
+     * @param {number} pageSize 每页条数
+     */
+    renderList(list, total, page = 1, pageSize = 20) {
+        this.updateList( list );
+        this.setTotalPage( total );
+        this.setCurrentPage( page );
+        this.setPageSize( pageSize );
+    }
+
+    /**
+     * 设置总数量
+     * @param {number} count
+     */
+    setTotalPage(count) {
+        this.pageOptions = Object.assign( {total: count}, this.pageOptions );
+    }
+
+    /**
+     * 设置当前页
+     * @param {number} page
+     */
+    setCurrentPage(page) {
+        this.pageOptions = Object.assign( {'current-page': page}, this.pageOptions );
+    }
+
+    /**
+     * 设置每页个数
+     * @param {number} size
+     */
+    setPageSize(size) {
+        this.pageOptions = Object.assign( {'page-size': size}, this.pageOptions );
+    }
+
+    /**
+     * 提交按钮点击事件
+     */
+    onSearchFormSubmit() {
         // do sth
     }
 
