@@ -1,7 +1,7 @@
-import BaseModel from "../../cores/model/BaseModel";
 import store from "../../store";
+import AppModel from "../baseModels/AppModel";
 
-class User extends BaseModel {
+class User extends AppModel {
     constructor(data = {}) {
         super(data);
 
