@@ -6,7 +6,7 @@ export default {
     debug: true,
 
     // 运行环境
-    env: { production: 'prod', development: 'dev', test: 'test' }[mode] || 'test',
+    env: { production: 'prod', development: 'dev', test: 'test' }[mode] || 'dev',
 
     // ui配置
     ui: {

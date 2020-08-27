@@ -21,4 +21,4 @@ yarn-error.log*
 *.sw*
 
 # 框架文件
-/src/configs/apiTest.js
+/src/configs/apiDev.js
