@@ -13,12 +13,16 @@ npm install
 node init.js
 ```
 
-### 本地运行
+### 运行
 ```
+npm run serve-dev
 npm run serve-test
+npm run serve-prod
 ```
 
-### 本读构建
+### 构建
 ```
+npm run build-dev
 npm run build-test
+npm run build-prod
 ```
