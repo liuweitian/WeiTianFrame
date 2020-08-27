@@ -9,6 +9,11 @@ export default class Permission {
      * @returns {boolean}
      */
     static hasPermission(name) {
+
+        if( !name ) {
+            return true;
+        }
+
         let permission = store.state.permission;
         return permission.indexOf( name ) !== -1;
     }
@@ -20,6 +25,9 @@ export default class Permission {
      * @returns {boolean}
      */
     static hasPermissionAnd(list) {
+        if( !list ) {
+            return true;
+        }
         let result = true;
         let permission = store.state.permission;
         for ( let index in list ) {
@@ -38,7 +46,10 @@ export default class Permission {
      * @returns {boolean}
      */
     static hasPermissionOr(list) {
-        let result = true;
+        if( !list ) {
+            return true;
+        }
+        let result = false;
         let permission = store.state.permission;
         for ( let index in list ) {
             result = permission.indexOf( list[index] ) !== -1;
@@ -46,7 +57,7 @@ export default class Permission {
                 break;
             }
         }
-        return true;
+        return result;
     }
 
     /**
@@ -70,7 +81,7 @@ export default class Permission {
                 };
             }
         }
-        if( condition === "permissionAnd" && typeof permission === 'object') {
+        if( condition === "permissionAnd" && Array.isArray( permission )) {
             if( !Permission.hasPermissionAnd( permission ) ) {
                 forbidden = {
                     state: true,
@@ -79,7 +90,7 @@ export default class Permission {
                 };
             }
         }
-        if( condition === "permissionOr" && typeof permission === 'object') {
+        if( condition === "permissionOr" && Array.isArray( permission )) {
             if( !Permission.hasPermissionOr( permission ) ) {
                 forbidden = {
                     state: true,
