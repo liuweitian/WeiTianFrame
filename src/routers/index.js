@@ -14,8 +14,7 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            name: 'main',
-            label: '首页',
+            name: '首页',
             meta: {
                 login: true,
             },
@@ -23,26 +22,33 @@ const router = new VueRouter({
         },
         {
             path: '/site/login',
-            name: 'login',
-            label: '登录',
+            name: '登录',
+            meta: {
+                showHeader: false,
+                showAside: false,
+                showBreadcrumb: false,
+                style: {
+                    padding: 0
+                },
+                breadcrumb: [
+
+                ]
+            },
             component: SiteLogin,
         },
         {
             path: '*',
-            name: 'notFound',
-            label: '未找到页面',
+            name: '未找到页面',
             component: ErrorNotFound
         },
         {
-            path: '/error/notFound',
-            name: 'notFound',
-            label: '未找到页面',
+            path: '/error/404',
+            name: '未找到页面',
             component: ErrorNotFound
         },
         {
-            path: '/error/notAllow',
-            name: 'notAllow',
-            label: '未授权访问',
+            path: '/error/403',
+            name: '未授权访问',
             component: ErrorNotAllow,
         },
     ]

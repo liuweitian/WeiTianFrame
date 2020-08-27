@@ -32,17 +32,4 @@
     #app {
         height: 100%;
     }
-
-    #app .h-div {
-        height: 100%;
-    }
-
-    .wt-hide {
-        display: none !important;
-    }
-
-    #app .empty-text {
-        text-align: center;
-        color: #999;
-    }
 </style>
