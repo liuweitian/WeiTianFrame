@@ -3,19 +3,26 @@
 </template>
 
 <script>
-    import main from '../configs/main';
     export default {
         name: "WtIcon",
-        props: [ 'name' , 'size', 'color' ],
+        props: {
+            style: {
+                type: Object,
+                default: () => {
+                    return {};
+                }
+            }
+        },
         computed: {
             className() {
                 return 'wt-icon ' + this.name;
             },
 
             style() {
-                let size = this.size || ( main.icon.defaultSize || '12px' );
-                let color = this.color || '#333333';
-                return 'font-size: ' + size + '; color: ' + color + ';' ;
+                return Object.assign({
+                    fontSize: 'inherit',
+                    color: 'inherit'
+                }, this.style);
             }
         }
     }
