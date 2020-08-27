@@ -6,11 +6,16 @@
     export default {
         name: "WtIcon",
         props: {
-            style: {
+            styleData: {
                 type: Object,
                 default: () => {
                     return {};
                 }
+            },
+
+            name: {
+                type: String,
+                required: true,
             }
         },
         computed: {
@@ -22,7 +27,7 @@
                 return Object.assign({
                     fontSize: 'inherit',
                     color: 'inherit'
-                }, this.style);
+                }, this.styleData);
             }
         }
     }

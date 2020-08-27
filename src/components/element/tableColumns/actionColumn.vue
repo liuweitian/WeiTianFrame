@@ -1,10 +1,10 @@
 <template>
     <div>
         <wt-icon
-                v-for=" button of column.buttons"
+                v-for="(button, index) of column.buttons"
+                :key="index"
                 :name="button.icon"
-                :style="{cursor: 'pointer'}"
-                color="#409EFF"
+                :style-data="{cursor: 'pointer', color: '#409EFF'}"
                 @click.native="() => { button.onClick( {model: scope.row.model, index: scope.$index} ) }"
         >
         </wt-icon>
