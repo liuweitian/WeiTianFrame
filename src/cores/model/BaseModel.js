@@ -116,9 +116,10 @@ export default class BaseModel {
      * @return {{hasError, result}}
      */
     validate(data = undefined) {
+        this.clearErrors();
+
         data = typeof data === 'object' ? data : this.data;
         let result = Validator.validate( data, this );
-
         store.commit('update', {
             target: this,
             data: {
@@ -223,5 +224,41 @@ export default class BaseModel {
         }
 
         return value;
+    }
+
+    /**
+     * 添加错误信息
+     * @param attribute
+     * @param errorMsg
+     */
+    addError(attribute, errorMsg) {
+        let errors = {};
+        errors[ attribute ] = [];
+
+        if( Array.isArray( this.errors[ attribute ] ) ) {
+            errors[attribute] = this.errors[ attribute ].concat([]);
+        }
+
+        errors[ attribute ].push( errorMsg );
+        store.commit('update', {
+            target: this,
+            data: {
+                hasError: true,
+                errors: errors
+            }
+        });
+    }
+
+    /**
+     * 清空错误信息
+     */
+    clearErrors() {
+        store.commit('update', {
+            target: this,
+            data: {
+                hasError: false,
+                errors: {}
+            }
+        });
     }
 }
