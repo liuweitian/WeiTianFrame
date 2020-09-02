@@ -22,17 +22,24 @@ export default class String {
         else {
             let min = options.min;
             let max = options.max;
+            let equal = options.equal;
             let list = options.list;
             if (min !== undefined) {
                 if (value.length < min) {
                     hasError = true;
-                    result[attribute].push(label + "长度必须大于" + min);
+                    result[attribute].push(label + "长度必须大于或等于" + min);
                 }
             }
             if (max !== undefined) {
                 if (value.length > max) {
                     hasError = true;
-                    result[attribute].push(label + "长度必须小于" + max);
+                    result[attribute].push(label + "长度必须小于或等于" + max);
+                }
+            }
+            if (equal !== undefined) {
+                if (value.length !== equal) {
+                    hasError = true;
+                    result[attribute].push(label + "长度必须等于" + equal);
                 }
             }
             if( typeof list === 'object' ) {

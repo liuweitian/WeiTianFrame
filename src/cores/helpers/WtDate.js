@@ -1,7 +1,7 @@
 import moment from "moment/moment";
 import 'moment/locale/zh-cn';
 
-export default class WtfDate {
+export default class WtDate {
 
     /**
      * 将时间格式化成距离当前的时间

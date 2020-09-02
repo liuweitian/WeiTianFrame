@@ -1,6 +1,6 @@
-import Validater from "../validate/Validater";
+import Validator from "../validate/Validator";
 import store from '../../store';
-import Models from "./Models";
+import BaseModels from "./BaseModels";
 
 export default class BaseModel {
     /**
@@ -116,7 +116,7 @@ export default class BaseModel {
      */
     validate(data = undefined) {
         data = typeof data === 'object' ? data : this.data;
-        let result = Validater.validate( data, this );
+        let result = Validator.validate( data, this );
 
         store.commit('update', {
             target: this,
@@ -133,9 +133,9 @@ export default class BaseModel {
      * 根据原数据列表实力化模型列表
      * @param list
      * @param instance
-     * @returns {Models}
+     * @returns {BaseModels}
      */
-    static instanceList(list, instance = Models) {
+    static instanceList(list, instance = BaseModels) {
         let _list = [];
         for ( let data of list ) {
             _list.push( new this(data) );

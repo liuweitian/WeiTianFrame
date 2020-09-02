@@ -1,4 +1,4 @@
-export default class Models {
+export default class BaseModels {
     constructor(list = []) {
         /**
          * 原始model列表

@@ -1,5 +1,5 @@
 import BaseFormatter from "./BaseFormatter";
-import WtfDate from "../helpers/WtfDate";
+import WtDate from "../helpers/WtDate";
 
 /**
  * 日期时间格式化
@@ -14,10 +14,10 @@ export default class DateTimeFormatter extends BaseFormatter {
     }
 
     getValue() {
-        let value = WtfDate.formatDateTime( this.value, this.options.template );
+        let value = WtDate.formatDateTime( this.value, this.options.template );
 
         if( this.options.fromNow ) {
-            value += ' ( '+WtfDate.fromNow( this.value )+' )';
+            value += ' ( '+WtDate.fromNow( this.value )+' )';
         }
         return value;
     }

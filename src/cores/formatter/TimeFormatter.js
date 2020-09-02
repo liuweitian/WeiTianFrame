@@ -1,5 +1,5 @@
 import BaseFormatter from "./BaseFormatter";
-import WtfDate from "../helpers/WtfDate";
+import WtDate from "../helpers/WtDate";
 
 export default class TimeFormatter extends BaseFormatter {
     constructor(value, options = {type: 'second', template: 'd天H小时i分钟'}) {
@@ -17,6 +17,6 @@ export default class TimeFormatter extends BaseFormatter {
                 break;
         }
 
-        return WtfDate.formatSecond( value, this.options.template );
+        return WtDate.formatSecond( value, this.options.template );
     }
 }
