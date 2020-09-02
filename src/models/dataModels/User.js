@@ -1,18 +1,15 @@
 import store from "../../store";
 import AppModel from "../baseModels/AppModel";
 
-class User extends AppModel {
-    constructor(data = {}) {
-        super(data);
+export default class User extends AppModel {
+    constructor(props = {}) {
+        super(props);
 
         this.accessToken = undefined;
 
         this.format = {
             username: {
                 label: '用户名'
-            },
-            password: {
-                label: '密码'
             },
             name: {
                 label: '姓名',
@@ -21,32 +18,49 @@ class User extends AppModel {
                 label: '手机号'
             }
         };
-
-        this.rules = [
-            {attribute: 'username', validate: 'String'},
-            {attribute: 'username', validate: 'Required'},
-            {attribute: 'password', validate: 'String', options: { min: 6, max: 16 }},
-            {attribute: 'password', validate: 'Required'},
-        ];
     }
 
     /**
      * 登录
-     * @param {function} fn 回调
+     * @param {function} callback 回调函数
      */
-    login(fn) {
-        if( !this.validate() ) {
-            fn( { type: 'error', data: { message: this.getOneError() } } );
-        } else {
-            setTimeout(() => {
-                store.commit('setAccessToken', 'LJASD9FISJF8JSDF8SD8F');
-                this.updateData({
+    login(callback) {
+        setTimeout(() => {
+            let type = 'success';
+            let data = {
+                message: '登录成功',
+                data: {
                     name: '张三',
-                    phone: '13266666666'
-                });
-                fn({ type: 'success', data: { message: '登录成功', data: Object.assign( {}, this.data ) } });
-            });
+                    phone: '13200000000'
+                },
+                accessToken: 'a6013b3ce0d0b33b17025b0af9c5a765'
+            };
+
+            this.afterLogin({ type, data });
+            callback({type, data});
+        });
+    }
+
+    /**
+     * 登录/获取用户信息后
+     * @param type
+     * @param data
+     */
+    afterLogin({type, data}) {
+        if( type === 'success' ) {
+            store.commit('setAccessToken', data.accessToken);
+            store.state.user.updateData(data.data);
+            if( !( this instanceof User ) ) {
+                this.updateData(data.data);
+            }
         }
+    }
+
+    /**
+     * 退出
+     */
+    logout() {
+        store.commit('setAccessToken', undefined);
     }
 
     /**
@@ -65,6 +79,3 @@ class User extends AppModel {
         return this.accessToken;
     }
 }
-
-
-export default User;

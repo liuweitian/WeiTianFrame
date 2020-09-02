@@ -170,7 +170,7 @@ export default class BaseModel {
      * @returns {string}
      */
     getLabel(attribute, format = 'format') {
-        return this[format][attribute].label ||  this.format[attribute].label;
+        return ObjectHelper.getDataForPath( this, format + '.' + attribute + '.label' );
     }
 
     /**

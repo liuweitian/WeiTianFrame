@@ -19,16 +19,6 @@ export default {
         }
     },
 
-    /**
-     * 登录
-     * @param state
-     * @param username
-     * @param password
-     */
-    login(state, { username, password }) {
-        state.user.login({ username, password });
-    },
-
     setAccessToken(state, accessToken) {
         // accessToken会保存在cookies中，在里边null被保存为字符串的null，所以这里要判断一下
         accessToken = accessToken === 'null' ? undefined : accessToken;
@@ -39,10 +29,5 @@ export default {
         } else {
             vue.$cookies.remove('accessToken');
         }
-    },
-
-    logout() {
-        // 不要再这里头做跳转，跳转的话会死循环
-        this.commit('setAccessToken', undefined);
     },
 };

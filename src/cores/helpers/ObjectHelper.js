@@ -17,6 +17,7 @@ export default {
      * 根据路径读取对象中的数据
      * @param {object} response
      * @param {string} _path
+     * @return {Object|string|Number|null|Boolean}
      */
     getDataForPath(response, _path) {
         let value = response;

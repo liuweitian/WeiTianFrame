@@ -1,10 +1,10 @@
 <template>
     <div class="site-login">
         <div>
-            <input v-model="form.username" type="text"></input>
+            <input v-model="model.data.username" type="text"></input>
         </div>
         <div>
-            <input v-model="form.password" type="password"></input>
+            <input v-model="model.data.password" type="password"></input>
         </div>
 
         <button @click="login">登录</button>
@@ -12,42 +12,39 @@
 </template>
 
 <script>
+    import LoginForm from "../../models/formModel/LoginForm";
+
     export default {
         name: "login",
         data() {
             return {
-                form: {
+                model: new LoginForm({
                     username: '',
-                    password: ''
-                }
+                    password: '',
+                }),
             };
         },
         methods: {
             login() {
-                this.$store.state.user.updateData( this.form );
-
                 this.$store.dispatch('showLoading', {
                     run: ( closeHandle ) => {
-                        this.$store.state.user.login(( {type, data} ) => {
+                        if( !this.model.validate() ) {
                             closeHandle();
+                            return ;
+                        }
 
-                            if( type !== 'success' ) {
+                        this.model.login(( {type} ) => {
+                            closeHandle();
+                            if( type === 'success' ) {
                                 this.$store.dispatch('showTip', {
-                                    text: data.message,
-                                    type: 'error'
+                                    text: '登录成功，' + this.model.getValue('username'),
+                                    type: 'success'
                                 });
-                                return false;
+                                this.$router.push( { path: '/' } );
                             }
-
-                            this.$store.dispatch('showTip', {
-                                text: '欢迎回来，' + this.$store.state.user.getValue('username'),
-                                type: 'success'
-                            });
-
-                            this.$router.push( { path: '/' } );
                         });
                     }
-                })
+                });
             }
         }
     }
