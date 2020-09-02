@@ -32,4 +32,7 @@ export default {
 
     // 是否显示无权限
     forbidden: forbidden,
+
+    // 定时队列
+    queueList: []
 };

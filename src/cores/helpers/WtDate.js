@@ -18,7 +18,7 @@ export default class WtDate {
      * @param {string} dateTime
      * @param {string} format
      */
-    static formatDateTime(dateTime, format) {
+    static formatDateTime(dateTime, format = 'Y-m-d H:i:s') {
         let date = null;
         if( dateTime ) {
             date = moment(dateTime);

@@ -16,5 +16,11 @@ export default {
     },
 
     // 接口配置
-    api: apiConfig
+    api: apiConfig,
+
+    // 定时队列配置
+    queue: {
+        // 消费间隔
+        timeout: 100,
+    }
 };

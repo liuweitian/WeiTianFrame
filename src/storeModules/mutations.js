@@ -19,6 +19,18 @@ export default {
         }
     },
 
+    remove(state, { target, index }) {
+        target.splice( index, 1 );
+    },
+
+    shift(state, { target }) {
+        return target.shift();
+    },
+
+    splice(state, { target, index, howMany = 1 }) {
+        target.splice( index, howMany );
+    },
+
     setAccessToken(state, accessToken) {
         // accessToken会保存在cookies中，在里边null被保存为字符串的null，所以这里要判断一下
         accessToken = accessToken === 'null' ? undefined : accessToken;
