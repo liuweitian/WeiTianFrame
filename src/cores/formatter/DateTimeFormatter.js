@@ -7,15 +7,20 @@ import WtDate from "../helpers/WtDate";
 export default class DateTimeFormatter extends BaseFormatter {
     /**
      * @param {string} value
+     * @param {BaseModel} model
      * @param {{fromNow, template}} options
      */
-    constructor(value, options = {fromNow: true, template: 'Y-m-d H:i:s'}) {
-        super(value, options);
+    constructor(value, model, options) {
+        super(value, model, options);
+        this.options = Object.assign( {fromNow: false, template: 'Y-m-d H:i:s'}, this.options );
     }
 
     getValue() {
-        let value = WtDate.formatDateTime( this.value, this.options.template );
+        if( !this.value ) {
+            return this.value;
+        }
 
+        let value = WtDate.formatDateTime( this.value, this.options.template );
         if( this.options.fromNow ) {
             value += ' ( '+WtDate.fromNow( this.value )+' )';
         }

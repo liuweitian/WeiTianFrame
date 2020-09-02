@@ -1,6 +1,7 @@
 import Validator from "../validate/Validator";
 import store from '../../store';
 import BaseModels from "./BaseModels";
+import ObjectHelper from "../helpers/ObjectHelper";
 
 export default class BaseModel {
     /**
@@ -194,7 +195,7 @@ export default class BaseModel {
      * 根据view的配置获取值
      * @param {string} attr 字段名
      * @param {string} formatName 默认format
-     * @param {object} options 字段名
+     * @param {object} options 选项，仅 value 为 fucntion时生效
      * @returns {*}
      */
     getValue(attr, formatName = 'format', options = {}) {
@@ -204,14 +205,13 @@ export default class BaseModel {
         // 如果定义了格式化类，则使用格式化类
         if( typeof format[attr].formatter === 'function' ) {
             let Class = format[attr].formatter;
-            let options = format[attr].formatterOptions;
-            let formatter = options ? new Class( value, options ) : new Class(value);
+            let formatter = new Class( value, this, ObjectHelper.getDataForPath(format, attr + '.formatterOptions') || {} );
             value = formatter.getValue();
         }
 
         // 如果指定format配置的对应字段已经定义了getValue方法，则直接调用它
         if (typeof format[attr].value === 'function') {
-            return format[attr].value({data: this.data, format: format, options: options});
+            return format[attr].value({format: format, options: options});
         }
         // 如果指定format配置了dataDict,则读取它
         else if (typeof format[attr].value === 'object') {
