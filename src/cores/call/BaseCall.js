@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import main from '../../configs/main';
-import api from '../../configs/api';
+import api from '../../configs/api/api';
 import ObjectHelper from "../helpers/ObjectHelper";
 import store from '../../store';
 import Permission from "../helpers/Permission";

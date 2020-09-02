@@ -1,4 +1,4 @@
-import main from './main';
+import main from '../main';
 import apiProd from './apiProd';
 import apiDev from './apiDev';
 import apiTest from './apiTest';
