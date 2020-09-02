@@ -1,5 +1,6 @@
 import store from "../../store";
 import AppModel from "../baseModels/AppModel";
+import Api from "../../cores/call/Api";
 
 export default class User extends AppModel {
     constructor(props = {}) {
@@ -25,6 +26,18 @@ export default class User extends AppModel {
      * @param {function} callback 回调函数
      */
     login(callback) {
+        // Api.instance()
+        //     .setUrlPath('user.login')
+        //     .setPostParams({
+        //         username: this.getSourceValue('username'),
+        //         password: this.getSourceValue('password'),
+        //     })
+        //     .setSuccessCallback(({type, data}) => {
+        //         this.afterLogin({type, data});
+        //         callback({type, data});
+        //     })
+        //     .raw();
+
         setTimeout(() => {
             let type = 'success';
             let data = {
@@ -47,10 +60,10 @@ export default class User extends AppModel {
      * @param data
      */
     afterLogin({type, data}) {
-        if( type === 'success' ) {
+        if (type === 'success') {
             store.commit('setAccessToken', data.accessToken);
             store.state.user.updateData(data.data);
-            if( !( this instanceof User ) ) {
+            if (!(this instanceof User)) {
                 this.updateData(data.data);
             }
         }
