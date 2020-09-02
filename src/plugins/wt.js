@@ -4,10 +4,10 @@ import Vue from 'vue';
 import './baiduMap.js';
 
 // icon图标
-import './wtIconFont/wt.icon.font.css';
+import './src/wtIconFont/wt.icon.font.css';
 
 // 加载公共样式
-import './common/common.css';
+import './src/common/common.css';
 
 import Permission from "../cores/helpers/Permission";
 
