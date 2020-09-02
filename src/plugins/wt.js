@@ -2,8 +2,12 @@ import Vue from 'vue';
 
 // 百度地图
 import './baiduMap.js';
+
 // icon图标
 import './wtIconFont/wt.icon.font.css';
+
+// 加载公共样式
+import './common/common.css';
 
 import Permission from "../cores/helpers/Permission";
 

@@ -10,7 +10,7 @@
 
 <script>
     import LayoutMain from './views/layout/main';
-    import NotAllow from "./views/error/notAllow";
+    import NotAllow from "./views/error/403";
     import WtPlugins from "./components/WtPlugins";
     export default {
         name: 'app',

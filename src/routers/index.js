@@ -4,8 +4,8 @@ import SiteIndex from '../views/site/index';
 import SiteLogin from '../views/site/login';
 import store from "../store";
 
-import ErrorNotFound from '../views/error/notFound';
-import ErrorNotAllow from '../views/error/notAllow';
+import ErrorNotFound from '../views/error/404';
+import ErrorNotAllow from '../views/error/403';
 import Permission from "../cores/helpers/Permission";
 
 Vue.use(VueRouter);
