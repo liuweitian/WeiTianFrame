@@ -14,7 +14,7 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            name: '首页',
+            name: '驾驶舱',
             meta: {
                 login: true,
             },

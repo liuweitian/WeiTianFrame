@@ -1,6 +1,6 @@
 <template>
     <el-container class="height-100">
-        <el-header class="wt-layout-header bgg-primary" v-if="showHeader">
+        <el-header class="wt-layout-header bgg-primary" v-show="showHeader">
             <el-container>
                 <el-aside :width="asideWidth">
                     <div class="logo">
@@ -14,12 +14,12 @@
         </el-header>
         <el-main class="height-100 wt-layout-main">
             <el-container class="height-100">
-                <el-aside :width="asideWidth" v-if="showAside">
+                <el-aside :width="asideWidth" v-show="showAside">
                     <layout-aside></layout-aside>
                 </el-aside>
                 <el-main class="wt-layout-content bgg-main" :style="layoutStyle">
 
-                    <el-breadcrumb separator="/" v-if="showBreadcrumb" class="wt-layout-breadcrumb">
+                    <el-breadcrumb separator="/" v-show="showBreadcrumb" class="wt-layout-breadcrumb">
                         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                         <el-breadcrumb-item
                             v-for="(item, index) in breadcrumb"
