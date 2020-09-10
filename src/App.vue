@@ -38,11 +38,13 @@
             };
         },
 
-        /**
-         * 监听当前路由，路由变更时修改页面标题
-         */
-        route() {
-            this.setTitle();
+        watch: {
+            /**
+             * 监听当前路由，路由变更时修改页面标题
+             */
+            route() {
+                this.setTitle();
+            },
         },
 
         methods: {
