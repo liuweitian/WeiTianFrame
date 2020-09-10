@@ -127,7 +127,34 @@
             searchItemCount: {
                 type: Number,
                 default: 4,
+            },
+
+            /**
+             * 是否将搜索条件推送到链接里
+             */
+            pushStatus: {
+                type: Boolean,
+                default: true,
             }
+        },
+
+        watch: {
+            /**
+             * 监听当前页码变化，如果变化则读取数据
+             */
+            'table.currentPage'() {
+                this.pushToUrl();
+            },
+
+            /**
+             * 监听搜索模型数据变化，如果变化则推送到URL中
+             */
+            'table.model.data': {
+                deep: true,
+                handler() {
+                    this.pushToUrl();
+                }
+            },
         },
 
         methods: {
@@ -146,6 +173,47 @@
              */
             onSearch() {
                 this.table.onLoad();
+            },
+
+            /**
+             * 从url中读取搜素内容
+             */
+            loadSearchData() {
+                if( this.$route.query.search ) {
+                    this.table.model.updateData( JSON.parse( this.$route.query.search ) );
+                }
+                if( this.$route.query.meta ) {
+                    this.table.setMeta( JSON.parse( this.$route.query.meta ) );
+                }
+            },
+
+            /**
+             * 将搜索信息推送到URL中
+             */
+            pushToUrl() {
+                if( this.pushStatus ) {
+                    let search = {};
+                    for ( let field of this.table.getSearchConfig() ) {
+                        if( this.table.model.getSourceValue( field.attribute ) ) {
+                            search[ field.attribute ] = this.table.model.getSourceValue( field.attribute );
+                        }
+                    }
+                    search = JSON.stringify(search);
+
+                    let query = {
+                        meta: JSON.stringify(this.table.getMeta()),
+                        search: search === '{}' ? undefined : search,
+                    };
+
+                    try {
+                        this.$router.push( {
+                            path: this.$route.path,
+                            query: query
+                        } );
+                    } catch (e) {
+
+                    }
+                }
             },
 
             /**
@@ -171,6 +239,7 @@
 
         mounted() {
             // 表格组件加载完成后直接触发搜索事件来加载数据
+            this.loadSearchData();
             this.onSearch();
         }
     }
