@@ -51,12 +51,6 @@ export default class BaseTable extends BaseModels {
         this.loading = false;
 
         /**
-         * 列表名称，主要用于导出时展示
-         * @type {string}
-         */
-        this.name = '列表';
-
-        /**
          * 项目总数
          * @type {number}
          */
@@ -79,6 +73,14 @@ export default class BaseTable extends BaseModels {
          * @type {number}
          */
         this.pageCount = 0;
+    }
+
+    /**
+     * 列表名称，主要用于导出时展示
+     * @returns {string}
+     */
+    getName() {
+        return '列表';
     }
 
     /**
@@ -223,7 +225,7 @@ export default class BaseTable extends BaseModels {
 
         let params = {
             api: urlItem.url,
-            name: this.name,
+            name: this.getName(),
             export_params: this.model.getSearchParams(),
             total_count: this.totalCount,
             page_size: this.pageSize
@@ -251,7 +253,7 @@ export default class BaseTable extends BaseModels {
                 ],
             });
             this.showTip({
-                text: this.name + '导出中，请稍等',
+                text: this.getName() + '导出中，请稍等',
                 type: 'info'
             });
         } );

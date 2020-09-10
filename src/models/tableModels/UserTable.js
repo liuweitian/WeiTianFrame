@@ -7,6 +7,10 @@ export default class UserTable extends BaseTable {
     static Model = User;
     static CreateModel = UserCreateForm;
 
+    getName() {
+        return '用户列表';
+    }
+
     getColumns() {
         return [
             {
