@@ -15,7 +15,7 @@
         <el-main class="height-100 wt-layout-main">
             <el-container class="height-100">
                 <el-aside :width="asideWidth" v-if="showAside">
-
+                    <layout-aside></layout-aside>
                 </el-aside>
                 <el-main class="wt-layout-content bgg-main" :style="layoutStyle">
 
@@ -44,11 +44,12 @@
 
 <script>
     // 侧边宽度
+    import LayoutAside from "./aside";
     const defaultWidth = '300px';
 
     export default {
         name: "layout-main",
-
+        components: {LayoutAside},
         data() {
             return {
                 // 侧边宽度
