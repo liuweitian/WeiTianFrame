@@ -30,9 +30,6 @@ const router = new VueRouter({
                 style: {
                     padding: 0
                 },
-                breadcrumb: [
-
-                ]
             },
             component: SiteLogin,
         },
