@@ -20,6 +20,16 @@ export default class BaseModels {
     }
 
     /**
+     * 更新数据源
+     * @param {array} models 数据源模型列表
+     * @param {boolean} isClear 是否清空数据源
+     */
+    updateList( models, isClear = true ) {
+        this.list = isClear ? models : this.list.concat( models );
+        this.generateIndex();
+    }
+
+    /**
      * 生成索引列表
      */
     generateIndex() {

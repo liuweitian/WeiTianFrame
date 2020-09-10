@@ -3,6 +3,9 @@ import AppModel from "../baseModels/AppModel";
 import Api from "../../cores/call/Api";
 
 export default class User extends AppModel {
+    static ListApi = 'user.list';
+    static CreateApi = 'user.create';
+
     constructor(props = {}) {
         super(props);
 

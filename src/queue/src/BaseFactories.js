@@ -1,21 +1,20 @@
+import store from "../../store";
+import main from '../../configs/main';
 /**
  * 生产者基类
  */
-import store from "../../store";
-import main from '../../configs/main';
-
 export default class BaseFactories {
     /**
      * 生产者基类
      * @param {object} data 消费时需要的数据
      * @param {function} callback 被消费后的回调函数
      */
-    constructor( data , callback) {
+    constructor( data , callback ) {
         /**
          * 队列消费时需要的数据
          * @type {{}}
          */
-        this.data = this.data || {};
+        this.data = data || {};
 
         /**
          * 被消费后的回调函数
@@ -58,7 +57,7 @@ export default class BaseFactories {
             store.commit('remove', {
                 target: store.state.queueList,
                 index: 0
-            })
+            });
             if( instance instanceof BaseFactories) {
                 return instance.run();
             } else {

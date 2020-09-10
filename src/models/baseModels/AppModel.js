@@ -10,6 +10,14 @@ export default class AppModel extends BaseModel {
     static UpdateApi = '';
 
     /**
+     * 获取表单配置
+     * @returns {*[]}
+     */
+    getFormConfig() {
+        return [];
+    }
+
+    /**
      * 获取原始数据
      * @param {boolean} isCopy 是否深拷贝
      * @returns {Object}
@@ -73,7 +81,7 @@ export default class AppModel extends BaseModel {
         Api.instance()
             .setUrlPath(this.constructor.CreateApi)
             .setPostParams(this.getCreateParams())
-            .setSuccessCallback(({type, data}) => {
+            .setSuccessCallback(({type, data}, res) => {
                 if( type !== 'success' ) {
                     this.addError( data.attribute, data.message );
                 } else {

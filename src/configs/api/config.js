@@ -4,21 +4,25 @@ export default {
         {
             type: 'success',
             data: {
-                message: 'data.message'
+                message: 'data.msg',
+                items: 'data.data.items',
+                meta: 'data.data._meta',
+                data: 'data.data',
             },
             items: {
                 'status': 200,
-                'data.status': 200,
+                'data.code': 200,
             }
         },
         {
             type: 'error',
             data: {
-                message: 'data.message'
+                message: 'data.msg',
+                attribute: 'data.data.attribute',
             },
             items: {
                 'status': 200,
-                'data.status': 400,
+                'data.code': 400,
             }
         },
     ],

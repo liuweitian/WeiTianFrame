@@ -27,34 +27,43 @@ export default {
      * @param {string} title 标题
      * @param {Component} view 内容，component实例
      * @param {string} size 大小
+     * @param {object} buttons 按钮
+     * @param {object} events 事件
      * @param {function} onClose 关闭模态框回调
      * @param {$ObjMap} options，其他选项，在view组件中可以通过this.$store.state.modal.options获取
      */
-    showModal(store, { title, view, size, options, onClose }) {
-        title = title || '';
-        size = size || '600px';
-        options = options || {};
-
-        // 显示新view之前先关闭掉旧的view，否则重复打开同一个view时会导致页面不加载
-        store.commit( 'update', {
-            target: store.state.modal,
-            data: { onClose: undefined }
-        } );
-        store.dispatch('hideModal');
-
-        setTimeout(() => {
-            store.commit('update', {
-                target: store.state.modal,
-                data: {
-                    title: title,
-                    view: view,
-                    size: size,
-                    onClose: onClose,
-                    options: options,
-                    id: Math.random(),
+    showModal(store, { title = '', view, size = 'normal', options = {}, buttons, events = {}, onClose }) {
+        buttons = buttons === false ? [] : buttons;
+        buttons = Array.isArray( buttons ) ? buttons : [
+            {
+                type: 'cancel',
+                name: '取消',
+                autoClose: true,
+                options: {
+                    text: '',
+                    class: 'float-left',
+                },
+            },
+            {
+                type: 'submit',
+                name: '确认',
+                options: {
+                    type: 'primary',
+                    class: 'float-right',
                 }
-            });
-        }, 100);
+            },
+        ];
+
+        store.commit('updateModalData', {
+            title: title,
+            view: view,
+            size: size,
+            onClose: onClose,
+            options: options,
+            buttons: buttons,
+            events: events,
+            id: Math.random(),
+        });
     },
 
     /**

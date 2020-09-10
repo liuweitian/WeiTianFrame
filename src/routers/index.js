@@ -37,19 +37,14 @@ const router = new VueRouter({
             component: SiteLogin,
         },
         {
-            path: '*',
-            name: '未找到页面',
-            component: ErrorNotFound
-        },
-        {
-            path: '/error/404',
-            name: '未找到页面',
-            component: ErrorNotFound
-        },
-        {
             path: '/error/403',
             name: '未授权访问',
             component: ErrorNotAllow,
+        },
+        {
+            path: '*',
+            name: '未找到页面',
+            component: ErrorNotFound
         },
     ]
 });

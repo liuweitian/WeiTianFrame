@@ -103,6 +103,18 @@ html,body {
     height: 100%;
 }
 
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
+}
+
 .float-left {
     float: left !important;
 }

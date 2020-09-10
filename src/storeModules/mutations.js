@@ -42,4 +42,8 @@ export default {
             vue.$cookies.remove('accessToken');
         }
     },
+
+    updateModalData(state, data) {
+        state.modal = Object.assign({}, state.target, data);
+    }
 };

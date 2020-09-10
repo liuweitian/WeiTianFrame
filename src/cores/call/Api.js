@@ -4,6 +4,7 @@ import main from "../../configs/main";
 import store from "../../store";
 import Permission from "../helpers/Permission";
 import Vue from "vue";
+import Axios from "axios";
 
 export default class Api {
     constructor() {
@@ -89,10 +90,11 @@ export default class Api {
 
     /**
      * 获取 POST请求参数
+     * @param {boolean} toJSON 是否转成JSON
      * @returns {{}}
      */
-    getPostParams() {
-        return this.postParams;
+    getPostParams(toJSON = false) {
+        return toJSON && typeof this.postParams ? JSON.stringify( this.postParams ) : this.postParams;
     }
 
     /**
@@ -126,6 +128,12 @@ export default class Api {
         if (!this.urlItem) {
             this.urlItem = ObjectHelper.getDataForPath(api, this.apiPath);
         }
+
+        if( !this.urlItem ) {
+            this.urlItem = {};
+            console.error( 'API ' + this.apiPath + ' 未配置，请在 configs/api.apiConfig.js 中配置好对应的接口信息。' );
+        }
+
         return this.urlItem;
     }
 
@@ -247,7 +255,7 @@ export default class Api {
 
         return this.create({
             url: urlItem.url,
-        }).get(urlItem.url).then((res) => {
+        }).get(urlItem.url, { params: this.getGetParams() }).then((res) => {
             this.afterCall(res);
         }).catch((e) => {
             let r = e.response;
@@ -265,17 +273,17 @@ export default class Api {
         let urlItem = this.getUrlItem();
 
         let url = urlItem.url;
-        if( this.getGetParams() ) {
-            let params = [];
-            for ( let name in this.getGetParams() ) {
-                params.push( ( params.length === 0 ? '?' : '&' ) + name + '=' + this.getGetParams()[name] );
-            }
-            url += params.join('');
-        }
+        // if( this.getGetParams() ) {
+        //     let params = [];
+        //     for ( let name in this.getGetParams() ) {
+        //         params.push( ( params.length === 0 ? '?' : '&' ) + name + '=' + this.getGetParams()[name] );
+        //     }
+        //     url += params.join('');
+        // }
 
         return this.create({
             url: url,
-        }).post(urlItem.url).then((res) => {
+        }).post(urlItem.url, this.getPostParams()).then((res) => {
             this.afterCall(res);
         }).catch((e) => {
             let r = e.response;
@@ -293,21 +301,14 @@ export default class Api {
         let urlItem = this.getUrlItem();
 
         let url = urlItem.url;
-        if( this.getGetParams() ) {
-            let params = [];
-            for ( let name in this.getGetParams() ) {
-                params.push( ( params.length === 0 ? '?' : '&' ) + name + '=' + this.getGetParams()[name] );
-            }
-            url += params.join('');
-        }
 
         this.setHeaders( Object.assign({
             'Content-Type': 'application/json'
         }, this.getHeaders()) );
 
-        return this.create({
-            url: url,
-        }).post(urlItem.url).then((res) => {
+        Axios.post( url, this.getPostParams(true), {
+            headers: this.getHeaders()
+        } ).then((res) => {
             this.afterCall(res);
         }).catch((e) => {
             let r = e.response;
