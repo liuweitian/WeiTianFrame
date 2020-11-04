@@ -90,12 +90,30 @@ export default class BaseModel {
     /**
      * 更新原始数据
      * @param {object} data
+     * @param {object} triggerWatch
      */
-    updateData(data) {
+    updateData(data, triggerWatch = true) {
         store.commit('update', {
             target: this.data,
             data: data,
         });
+        // 触发 watch 函数
+        if( triggerWatch ) {
+            for ( let attribute in this.data ) {
+                let methodName = 'watch' + attribute.split('_')
+                    .filter(value => !!value)
+                    .map(value => {
+                        value = value.split('');
+                        value[0] = value[0].toLocaleUpperCase();
+                        return value.join('');
+                    })
+                    .join('');
+
+                if( typeof this[ methodName ] === 'function' ) {
+                    this[methodName]( this.data[ attribute ] );
+                }
+            }
+        }
     }
 
     /**
