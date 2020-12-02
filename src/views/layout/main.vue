@@ -17,7 +17,7 @@
                 <el-aside :width="asideWidth" v-show="showAside">
                     <layout-aside></layout-aside>
                 </el-aside>
-                <el-main class="wt-layout-content bgg-main" :style="layoutStyle">
+                <el-main class="wt-layout-content bgg-main pa-3" :style="layoutStyle">
 
                     <el-breadcrumb separator="/" v-show="showBreadcrumb" class="wt-layout-breadcrumb">
                         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -45,7 +45,7 @@
 <script>
     // 侧边宽度
     import LayoutAside from "./aside";
-    const defaultWidth = '300px';
+    const defaultWidth = '200px';
 
     export default {
         name: "layout-main",

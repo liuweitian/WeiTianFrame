@@ -1,8 +1,5 @@
 import Vue from 'vue';
 
-// 百度地图
-import './baiduMap.js';
-
 // icon图标
 import './src/wtIconFont/wt.icon.font.css';
 

@@ -93,27 +93,7 @@ export default class BaseModel {
      * @param {object} triggerWatch
      */
     updateData(data, triggerWatch = true) {
-        store.commit('update', {
-            target: this.data,
-            data: data,
-        });
-        // 触发 watch 函数
-        if( triggerWatch ) {
-            for ( let attribute in this.data ) {
-                let methodName = 'watch' + attribute.split('_')
-                    .filter(value => !!value)
-                    .map(value => {
-                        value = value.split('');
-                        value[0] = value[0].toLocaleUpperCase();
-                        return value.join('');
-                    })
-                    .join('');
-
-                if( typeof this[ methodName ] === 'function' ) {
-                    this[methodName]( this.data[ attribute ] );
-                }
-            }
-        }
+        this.data = Object.assign({}, this.data, data);
     }
 
     /**
